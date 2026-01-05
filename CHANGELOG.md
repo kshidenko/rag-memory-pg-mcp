@@ -5,6 +5,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2026-01-05
+
+### Breaking Changes 🔴
+- **BREAKING**: Renamed `EMBEDDING_PROVIDER` to `MODE` for simplicity
+- **BREAKING**: MODE values are now lowercase: `local` or `openai` (was `LOCAL`/`OPENAI`)
+- Migration: Simply rename env var and lowercase the value
+
+### Added ✨
+- Official install buttons for Cursor, LM Studio, and VS Code
+- One-click installation with deep links
+- Unified configuration format - all 4 fields in every config
+- MODE=local ignores OPENAI_API_KEY (can use placeholder)
+- Clearer documentation with single config example
+
+### Changed
+- Simplified configuration - one format for all IDEs
+- Deep links include full config with MODE=local by default
+- Improved README structure with vertical-aligned buttons
+- Updated .env.example with MODE
+- Better user experience - less confusing, more straightforward
+
+### Fixed
+- Button vertical alignment in README
+- Configuration examples now consistent across all IDEs
+
 ## [1.2.1] - 2026-01-05
 
 ### Security 🔒
