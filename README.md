@@ -9,16 +9,33 @@ A Model Context Protocol (MCP) server for RAG-enabled memory with PostgreSQL/Sup
 
 ## 🚀 Quick Install
 
-[![Install in Cursor](https://img.shields.io/badge/Cursor-Install_Server-0078D7?style=flat-square&logo=visual-studio-code&logoColor=white)](#cursor)
-[![Install in Claude Desktop](https://img.shields.io/badge/Claude_Desktop-Install_Server-000000?style=flat-square&logoColor=white)](#claude-desktop)
-[![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_Server-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](#vs-code)
-[![Install in Windsurf](https://img.shields.io/badge/Windsurf-Install_Server-24bfa5?style=flat-square&logoColor=white)](#windsurf)
+### One-Click Install (with placeholders)
+
+[![Install in Cursor](https://img.shields.io/badge/Cursor-Install_Server-0078D7?style=flat-square&logo=visual-studio-code&logoColor=white)](https://cursor.sh/mcp/install?name=rag-memory-pg&inputs=%5B%7B%22id%22%3A%22supabase_url%22%2C%22type%22%3A%22promptString%22%2C%22description%22%3A%22Supabase%20Project%20URL%22%7D%2C%7B%22id%22%3A%22supabase_key%22%2C%22type%22%3A%22promptString%22%2C%22description%22%3A%22Supabase%20Service%20Key%22%2C%22password%22%3Atrue%7D%5D&config=%7B%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22rag-memory-pg-mcp%22%5D%2C%22env%22%3A%7B%22SUPABASE_URL%22%3A%22%24%7Binput%3Asupabase_url%7D%22%2C%22SUPABASE_SERVICE_KEY%22%3A%22%24%7Binput%3Asupabase_key%7D%22%7D%7D)
+[![Install in Claude Desktop](https://img.shields.io/badge/Claude_Desktop-Install_Server-000000?style=flat-square&logoColor=white)](#manual-installation)
+[![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_Server-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](#manual-installation)
+[![Install in Windsurf](https://img.shields.io/badge/Windsurf-Install_Server-24bfa5?style=flat-square&logoColor=white)](#manual-installation)
+
+> **Note:** Click buttons above for automatic installation with guided setup prompts for credentials.
 
 ---
+
+### 🔑 Get Your Credentials First
+
+Before installation, get your credentials:
+- **Supabase:** https://app.supabase.com/project/_/settings/api
+- **OpenAI** (optional, 10-100x faster embeddings): https://platform.openai.com/api-keys
+
+---
+
+## Manual Installation
 
 ### Cursor
 
 Add to `~/.cursor/mcp.json`:
+
+<details>
+<summary><b>🐌 Local Embeddings (Free, Private, Slower)</b></summary>
 
 ```json
 {
@@ -34,6 +51,30 @@ Add to `~/.cursor/mcp.json`:
   }
 }
 ```
+
+</details>
+
+<details>
+<summary><b>⚡ OpenAI Embeddings (Fast, Cloud, Recommended)</b></summary>
+
+```json
+{
+  "mcpServers": {
+    "rag-memory-pg": {
+      "command": "npx",
+      "args": ["-y", "rag-memory-pg-mcp"],
+      "env": {
+        "SUPABASE_URL": "https://your-project.supabase.co",
+        "SUPABASE_SERVICE_KEY": "your-service-key",
+        "EMBEDDING_PROVIDER": "OPENAI",
+        "OPENAI_API_KEY": "sk-your-api-key"
+      }
+    }
+  }
+}
+```
+
+</details>
 
 Then restart Cursor.
 
@@ -41,6 +82,9 @@ Then restart Cursor.
 
 Add to `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) or `%APPDATA%\Claude\claude_desktop_config.json` (Windows):
 
+<details>
+<summary><b>🐌 Local Embeddings (Free, Private, Slower)</b></summary>
+
 ```json
 {
   "mcpServers": {
@@ -56,11 +100,38 @@ Add to `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS)
 }
 ```
 
+</details>
+
+<details>
+<summary><b>⚡ OpenAI Embeddings (Fast, Cloud, Recommended)</b></summary>
+
+```json
+{
+  "mcpServers": {
+    "rag-memory-pg": {
+      "command": "npx",
+      "args": ["-y", "rag-memory-pg-mcp"],
+      "env": {
+        "SUPABASE_URL": "https://your-project.supabase.co",
+        "SUPABASE_SERVICE_KEY": "your-service-key",
+        "EMBEDDING_PROVIDER": "OPENAI",
+        "OPENAI_API_KEY": "sk-your-api-key"
+      }
+    }
+  }
+}
+```
+
+</details>
+
 Then restart Claude Desktop.
 
 ### VS Code
 
 Add to `.vscode/mcp.json` in your workspace:
+
+<details>
+<summary><b>🐌 Local Embeddings (Free, Private, Slower)</b></summary>
 
 ```json
 {
@@ -78,11 +149,39 @@ Add to `.vscode/mcp.json` in your workspace:
 }
 ```
 
+</details>
+
+<details>
+<summary><b>⚡ OpenAI Embeddings (Fast, Cloud, Recommended)</b></summary>
+
+```json
+{
+  "servers": {
+    "rag-memory-pg": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "rag-memory-pg-mcp"],
+      "env": {
+        "SUPABASE_URL": "https://your-project.supabase.co",
+        "SUPABASE_SERVICE_KEY": "your-service-key",
+        "EMBEDDING_PROVIDER": "OPENAI",
+        "OPENAI_API_KEY": "sk-your-api-key"
+      }
+    }
+  }
+}
+```
+
+</details>
+
 Then reload VS Code window.
 
 ### Windsurf
 
 Add to `~/.windsurf/mcp.json`:
+
+<details>
+<summary><b>🐌 Local Embeddings (Free, Private, Slower)</b></summary>
 
 ```json
 {
@@ -99,14 +198,31 @@ Add to `~/.windsurf/mcp.json`:
 }
 ```
 
+</details>
+
+<details>
+<summary><b>⚡ OpenAI Embeddings (Fast, Cloud, Recommended)</b></summary>
+
+```json
+{
+  "mcpServers": {
+    "rag-memory-pg": {
+      "command": "npx",
+      "args": ["-y", "rag-memory-pg-mcp"],
+      "env": {
+        "SUPABASE_URL": "https://your-project.supabase.co",
+        "SUPABASE_SERVICE_KEY": "your-service-key",
+        "EMBEDDING_PROVIDER": "OPENAI",
+        "OPENAI_API_KEY": "sk-your-api-key"
+      }
+    }
+  }
+}
+```
+
+</details>
+
 Then restart Windsurf.
-
----
-
-### 🔑 Get Your Credentials
-
-- **Supabase:** https://app.supabase.com/project/_/settings/api
-- **OpenAI** (optional, for faster embeddings): https://platform.openai.com/api-keys
 
 ---
 
