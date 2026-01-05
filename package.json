@@ -1,0 +1,24 @@
+{
+  "name": "rag-memory-pg-mcp",
+  "version": "1.1.0",
+  "description": "PostgreSQL-based RAG Memory MCP Server with Supabase",
+  "type": "module",
+  "main": "src/index.js",
+  "bin": {
+    "rag-memory-pg-mcp": "src/index.js"
+  },
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "keywords": ["mcp", "rag", "memory", "postgresql", "supabase", "knowledge-graph"],
+  "author": "AI Assistant",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4",
+    "@supabase/supabase-js": "^2.39.0",
+    "@huggingface/transformers": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
