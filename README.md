@@ -40,7 +40,7 @@ Add to `~/.cursor/mcp.json`:
   "mcpServers": {
     "rag-memory-pg": {
       "command": "npx",
-      "args": ["-y", "rag-memory-pg-mcp"],
+      "args": ["-y", "rag-memory-pg-mcp@latest"],
       "env": {
         "SUPABASE_URL": "https://your-project.supabase.co",
         "SUPABASE_SERVICE_KEY": "your-service-key",
@@ -66,7 +66,7 @@ Add to `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS)
   "mcpServers": {
     "rag-memory-pg": {
       "command": "npx",
-      "args": ["-y", "rag-memory-pg-mcp"],
+      "args": ["-y", "rag-memory-pg-mcp@latest"],
       "env": {
         "SUPABASE_URL": "https://your-project.supabase.co",
         "SUPABASE_SERVICE_KEY": "your-service-key",
@@ -93,7 +93,7 @@ Add to `.vscode/mcp.json` in your workspace:
     "rag-memory-pg": {
       "type": "stdio",
       "command": "npx",
-      "args": ["-y", "rag-memory-pg-mcp"],
+      "args": ["-y", "rag-memory-pg-mcp@latest"],
       "env": {
         "SUPABASE_URL": "https://your-project.supabase.co",
         "SUPABASE_SERVICE_KEY": "your-service-key",
@@ -119,7 +119,7 @@ Add to `~/.windsurf/mcp.json`:
   "mcpServers": {
     "rag-memory-pg": {
       "command": "npx",
-      "args": ["-y", "rag-memory-pg-mcp"],
+      "args": ["-y", "rag-memory-pg-mcp@latest"],
       "env": {
         "SUPABASE_URL": "https://your-project.supabase.co",
         "SUPABASE_SERVICE_KEY": "your-service-key",
@@ -153,13 +153,15 @@ Already configured in Quick Start above!
 
 ### Option 2: Global Installation
 ```bash
-npm install -g rag-memory-pg-mcp
+npm install -g rag-memory-pg-mcp@latest
 ```
 
 ### Option 3: From GitHub
 ```bash
 npm install -g github:kshidenko/rag-memory-pg-mcp
 ```
+
+> **Note:** Using `@latest` ensures you always get the newest version. npx automatically checks for updates every 24 hours.
 
 ## Environment Variables
 
@@ -367,6 +369,7 @@ npx @modelcontextprotocol/inspector node src/index.js
 - **[CONTRIBUTING.md](CONTRIBUTING.md)** - How to contribute to this project
 - **[SECURITY.md](SECURITY.md)** - Security policy and best practices
 - **[MIGRATION.md](MIGRATION.md)** - Migration guide for version upgrades
+- **[UPDATE_GUIDE.md](UPDATE_GUIDE.md)** - How to update to latest version
 
 ## 🤝 Contributing
 
