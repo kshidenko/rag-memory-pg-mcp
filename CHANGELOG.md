@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 2026-01-05
+
+### Breaking Changes 🔴
+- **Renamed `readGraph` → `getGraph`** due to Cursor API conflict
+- The `readGraph` name was causing the tool to be ignored/blocked by Cursor
+- Handler supports both names for backward compatibility
+
+### Fixed 🐛
+- **Tool loading in CLIENT mode** - now correctly shows 10 tools (was showing 9)
+- Root cause: `readGraph` conflicted with Cursor internal API
+- Solution: Renamed to `getGraph` - all tools now load properly
+
+### Technical Details
+- Debug analysis showed server was sending 10 tools correctly
+- Cursor was blocking/ignoring the `readGraph` tool during registration
+- Tool name conflict resolved by renaming
+
 ## [2.1.1] - 2026-01-05
 
 ### Added ✨

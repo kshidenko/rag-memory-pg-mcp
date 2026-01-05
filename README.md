@@ -196,7 +196,7 @@ npm install -g github:kshidenko/rag-memory-pg-mcp
 - Knowledge Graph: createEntities, createRelations, addObservations, searchNodes, openNodes
 - Documents: processDocument (⭐ main tool)
 - Search: hybridSearch, getDetailedContext
-- Info: readGraph, getKnowledgeGraphStats
+- Info: getGraph, getKnowledgeGraphStats
 
 **MAINTENANCE mode (11 tools) - For cleanup and admin:**
 - Cleanup: deleteEntities, deleteRelations, deleteObservations, deleteDocuments
