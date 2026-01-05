@@ -9,14 +9,9 @@ A Model Context Protocol (MCP) server for RAG-enabled memory with PostgreSQL/Sup
 
 ## 🚀 Quick Install
 
-### One-Click Install (with placeholders)
+[<img src="https://cursor.com/deeplink/mcp-install-dark.svg" alt="Install in Cursor">](https://cursor.com/en/install-mcp?name=rag-memory-pg&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsInJhZy1tZW1vcnktcGctbWNwIl0sImVudiI6eyJTVVBBQkFTRV9VUkwiOiJodHRwczovL3lvdXItcHJvamVjdC5zdXBhYmFzZS5jbyIsIlNVUEFCQVNFX1NFUlZJQ0VfS0VZIjoieW91ci1zZXJ2aWNlLWtleSJ9fQ%3D%3D)
 
-[![Install in Cursor](https://img.shields.io/badge/Cursor-Install_Server-0078D7?style=flat-square&logo=visual-studio-code&logoColor=white)](https://cursor.sh/mcp/install?name=rag-memory-pg&inputs=%5B%7B%22id%22%3A%22supabase_url%22%2C%22type%22%3A%22promptString%22%2C%22description%22%3A%22Supabase%20Project%20URL%22%7D%2C%7B%22id%22%3A%22supabase_key%22%2C%22type%22%3A%22promptString%22%2C%22description%22%3A%22Supabase%20Service%20Key%22%2C%22password%22%3Atrue%7D%5D&config=%7B%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22rag-memory-pg-mcp%22%5D%2C%22env%22%3A%7B%22SUPABASE_URL%22%3A%22%24%7Binput%3Asupabase_url%7D%22%2C%22SUPABASE_SERVICE_KEY%22%3A%22%24%7Binput%3Asupabase_key%7D%22%7D%7D)
-[![Install in Claude Desktop](https://img.shields.io/badge/Claude_Desktop-Install_Server-000000?style=flat-square&logoColor=white)](#manual-installation)
-[![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_Server-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](#manual-installation)
-[![Install in Windsurf](https://img.shields.io/badge/Windsurf-Install_Server-24bfa5?style=flat-square&logoColor=white)](#manual-installation)
-
-> **Note:** Click buttons above for automatic installation with guided setup prompts for credentials.
+> **Cursor users:** Click the button above for one-click installation with automatic configuration!
 
 ---
 
