@@ -102,7 +102,8 @@ async function executeToolMethod(name, args, manager) {
         includeEntities: args.includeEntities,
       });
 
-    case 'readGraph':
+    case 'getGraph':
+    case 'readGraph': // Backward compatibility
       return manager.readGraph();
 
     // ==================== UTILITIES ====================

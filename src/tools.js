@@ -13,7 +13,7 @@
  * @returns {object[]} Array of tool definitions
  */
 export function getToolDefinitions() {
-  return [
+  const tools = [
     // ==================== ENTITY TOOLS ====================
     {
       name: 'createEntities',
@@ -297,7 +297,7 @@ export function getToolDefinitions() {
     },
     {
       name: 'embedAllEntities',
-      description: 'Generate embeddings for all entities',
+      description: 'Generate embeddings for all entities in the knowledge graph. Use this to enable semantic search on entities or after adding many new entities. No parameters required.',
       inputSchema: {
         type: 'object',
         properties: {},
@@ -349,23 +349,21 @@ export function getToolDefinitions() {
       },
     },
     {
-      name: 'readGraph',
-      description: 'Read the entire knowledge graph with all entities, relationships, and observations. Use this to get a complete overview of stored knowledge. Returns full graph structure for analysis or visualization.',
+      name: 'getGraph',
+      description: 'Get the entire knowledge graph with all entities, relationships, and observations. Use this to retrieve complete overview of stored knowledge. Returns full graph structure for analysis or visualization. No parameters required.',
       inputSchema: {
         type: 'object',
         properties: {},
-        description: 'No parameters required. Returns complete graph with all entities and their connections.'
       },
     },
 
     // ==================== UTILITY TOOLS ====================
     {
       name: 'getKnowledgeGraphStats',
-      description: 'Get statistics about the knowledge graph including total counts of entities, relationships, documents, and chunks. Use this to understand the size and scope of stored knowledge.',
+      description: 'Get statistics about the knowledge graph including total counts of entities, relationships, documents, and chunks. Use this to understand the size and scope of stored knowledge. Returns entity_count, relationship_count, document_count, chunk_count, and type distributions. No parameters required.',
       inputSchema: {
         type: 'object',
         properties: {},
-        description: 'No parameters required. Returns entity_count, relationship_count, document_count, chunk_count, and type distributions.'
       },
     },
     {
@@ -394,4 +392,6 @@ export function getToolDefinitions() {
       },
     },
   ];
+  
+  return tools;
 }

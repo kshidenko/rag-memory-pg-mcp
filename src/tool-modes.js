@@ -27,7 +27,7 @@ export const TOOL_MODES = {
     'getDetailedContext',  // Get rich context with entities
     
     // Utilities - Basic info
-    'readGraph',           // View knowledge graph
+    'getGraph',            // View knowledge graph (renamed from readGraph)
     'getKnowledgeGraphStats', // See statistics
   ],
 
