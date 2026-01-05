@@ -26,3 +26,4 @@ build/
 
 # Debug
 *.log
+._*
