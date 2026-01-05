@@ -20,11 +20,14 @@ import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import {
   CallToolRequestSchema,
   ListToolsRequestSchema,
+  ListPromptsRequestSchema,
+  GetPromptRequestSchema,
 } from '@modelcontextprotocol/sdk/types.js';
 
 import { RAGKnowledgeGraphManager } from './manager.js';
 import { getToolDefinitions } from './tools.js';
 import { filterToolsByMode } from './tool-modes.js';
+import { getPromptDefinitions } from './prompts.js';
 import { handleToolCall, createErrorResponse } from './handlers.js';
 
 // ==================== CONFIGURATION ====================
@@ -59,11 +62,36 @@ console.error(`📊 Active tools: ${activeTools.length}/${allTools.length}`);
 const server = new Server(
   {
     name: 'rag-memory-pg',
-    version: '2.0.0',
+    version: '2.1.0',
+    description: 'RAG-enabled memory with PostgreSQL/Supabase backend. Provides knowledge graph, document management, and semantic search. All content should be in English for optimal performance.',
+    instructions: `This is a RAG (Retrieval-Augmented Generation) memory system with knowledge graph capabilities.
+
+KEY PRINCIPLES:
+1. ALL content (entities, documents, queries) must be in ENGLISH for optimal embedding and search
+2. Use processDocument for storing documentation/code examples
+3. Use createEntities + createRelations for structured knowledge
+4. Use hybridSearch or getDetailedContext for finding information
+
+RECOMMENDED WORKFLOW:
+- Store knowledge: processDocument (documents) + createEntities (concepts) + createRelations (links)
+- Search knowledge: hybridSearch (documents) or searchNodes (entities)
+- Explore: readGraph (full overview) or getKnowledgeGraphStats (statistics)
+
+TOOL MODES:
+- client: 10 essential tools for daily use (recommended)
+- maintenance: 11 admin/cleanup tools
+- full: all 21 tools (default)
+
+EMBEDDING MODES:
+- local: Free, private, slower (default)
+- openai: 10-100x faster, cloud-based (recommended)
+
+Use English for all operations to ensure accurate semantic search and embedding quality.`,
   },
   {
     capabilities: {
       tools: {},
+      prompts: {},
     },
   }
 );
@@ -77,6 +105,46 @@ const manager = new RAGKnowledgeGraphManager(SUPABASE_URL, SUPABASE_KEY);
  */
 server.setRequestHandler(ListToolsRequestSchema, async () => {
   return { tools: activeTools };
+});
+
+/**
+ * List available prompts
+ */
+server.setRequestHandler(ListPromptsRequestSchema, async () => {
+  return { prompts: getPromptDefinitions() };
+});
+
+/**
+ * Get specific prompt
+ */
+server.setRequestHandler(GetPromptRequestSchema, async (request) => {
+  const prompts = getPromptDefinitions();
+  const prompt = prompts.find(p => p.name === request.params.name);
+  
+  if (!prompt) {
+    throw new Error(`Prompt not found: ${request.params.name}`);
+  }
+  
+  // Replace template variables
+  let messages = [{
+    role: 'user',
+    content: {
+      type: 'text',
+      text: prompt.prompt,
+    },
+  }];
+  
+  // Replace {{variable}} in prompt with actual arguments
+  if (request.params.arguments) {
+    Object.entries(request.params.arguments).forEach(([key, value]) => {
+      messages[0].content.text = messages[0].content.text.replace(
+        new RegExp(`{{${key}}}`, 'g'),
+        value
+      );
+    });
+  }
+  
+  return { messages };
 });
 
 /**
