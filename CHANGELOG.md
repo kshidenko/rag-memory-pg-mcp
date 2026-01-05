@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2026-01-05
+
+### Added ✨
+- **TOOLS_MODE environment variable** for flexible tool sets
+- `TOOLS_MODE=client` - 11 essential tools for daily memory operations (recommended)
+- `TOOLS_MODE=maintenance` - 10 admin/cleanup tools for database management
+- `TOOLS_MODE=full` - All 21 tools (default)
+- Automatic updates via `@latest` in all npx commands
+- UPDATE_GUIDE.md with update instructions
+
+### Changed
+- All configuration examples use `rag-memory-pg-mcp@latest` for auto-updates
+- Deep links updated to include `@latest` 
+- Better tool organization by mode
+- Clearer documentation on tool modes
+
+### Benefits
+- **Faster agent decisions** with fewer tools in client mode
+- **Focused workflows** - use only what you need
+- **Easier maintenance** - separate admin tools
+- **Always up-to-date** - automatic updates every 24h
+
 ## [2.0.0] - 2026-01-05
 
 ### Breaking Changes 🔴
