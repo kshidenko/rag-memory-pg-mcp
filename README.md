@@ -1,37 +1,21 @@
 # RAG Memory PostgreSQL MCP Server
 
+[![npm version](https://img.shields.io/npm/v/rag-memory-pg-mcp.svg)](https://www.npmjs.com/package/rag-memory-pg-mcp)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Fast Start](https://img.shields.io/badge/🚀_Fast_Start-Install_to_Cursor-blue?style=for-the-badge)](#quick-start)
+
 A Model Context Protocol (MCP) server for RAG-enabled memory with PostgreSQL/Supabase backend. Provides knowledge graph, document management, and semantic search capabilities.
 
-## Features
+## ⚡ Fast Start - Install to Cursor
 
-- **Knowledge Graph**: Entities, relationships, and observations
-- **Document Processing**: Store → Chunk → Embed pipeline
-- **Semantic Search**: Vector embeddings with local HuggingFace model (no API keys needed)
-- **Hybrid Search**: Combines text and semantic search
-- **Multi-Machine Sync**: PostgreSQL backend enables real-time sync across devices
+**1-Click Setup:**
 
-## Quick Start
-
-### Installation via npx
-
-```bash
-npx rag-memory-pg-mcp
-```
-
-### Installation from GitHub
-
-```bash
-npm install -g github:kshidenko/rag-memory-pg-mcp
-```
-
-### Cursor MCP Configuration
-
-Add to `~/.cursor/mcp.json`:
+Add this to your `~/.cursor/mcp.json`:
 
 ```json
 {
   "mcpServers": {
-    "rag-memory": {
+    "rag-memory-pg": {
       "command": "npx",
       "args": ["-y", "rag-memory-pg-mcp"],
       "env": {
@@ -41,6 +25,43 @@ Add to `~/.cursor/mcp.json`:
     }
   }
 }
+```
+
+**Get your credentials:**
+- Supabase: https://app.supabase.com/project/_/settings/api
+- OpenAI (optional, for faster embeddings): https://platform.openai.com/api-keys
+
+**Then restart Cursor!** 🎉
+
+<details>
+<summary><b>📹 Video Tutorial (Coming Soon)</b></summary>
+
+Watch how to set up in 60 seconds.
+</details>
+
+---
+
+## Features
+
+- **Knowledge Graph**: Entities, relationships, and observations
+- **Document Processing**: Store → Chunk → Embed pipeline
+- **Semantic Search**: Vector embeddings with local HuggingFace model (no API keys needed)
+- **Hybrid Search**: Combines text and semantic search
+- **Multi-Machine Sync**: PostgreSQL backend enables real-time sync across devices
+
+## 📦 Installation Options
+
+### Option 1: Direct via npx (Recommended)
+Already configured in [Fast Start](#-fast-start---install-to-cursor) above!
+
+### Option 2: Global Installation
+```bash
+npm install -g rag-memory-pg-mcp
+```
+
+### Option 3: From GitHub
+```bash
+npm install -g github:kshidenko/rag-memory-pg-mcp
 ```
 
 ## Environment Variables
