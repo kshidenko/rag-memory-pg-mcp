@@ -154,6 +154,8 @@ Then restart Windsurf.
 - **Hybrid Search**: Combines text and semantic search
 - **Multi-Machine Sync**: PostgreSQL backend enables real-time sync across devices
 
+> **⚠️ Important:** All content (entities, documents, queries) should be stored and searched in **English** for optimal embedding and search performance. The embedding models are trained on English text and work best with English input.
+
 ## 📦 Installation Options
 
 ### Option 1: Direct via npx (Recommended)
@@ -207,6 +209,8 @@ npm install -g github:kshidenko/rag-memory-pg-mcp
 </details>
 
 ## Available Tools (21 total)
+
+> **Language Note:** All tools expect English input for entity names, observations, document content, and search queries. This ensures optimal embedding quality and search accuracy.
 
 ### Document Processing
 
