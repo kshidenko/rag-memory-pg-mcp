@@ -9,9 +9,23 @@ A Model Context Protocol (MCP) server for RAG-enabled memory with PostgreSQL/Sup
 
 ## 🚀 Quick Install
 
-[<img src="https://cursor.com/deeplink/mcp-install-dark.svg" alt="Install in Cursor">](https://cursor.com/en/install-mcp?name=rag-memory-pg&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsInJhZy1tZW1vcnktcGctbWNwIl0sImVudiI6eyJTVVBBQkFTRV9VUkwiOiJodHRwczovL3lvdXItcHJvamVjdC5zdXBhYmFzZS5jbyIsIlNVUEFCQVNFX1NFUlZJQ0VfS0VZIjoieW91ci1zZXJ2aWNlLWtleSJ9fQ%3D%3D)
+**One-click installation for your IDE:**
 
-> **Cursor users:** Click the button above for one-click installation with automatic configuration!
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://cursor.com/deeplink/mcp-install-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="https://cursor.com/deeplink/mcp-install-light.svg">
+  <a href="https://cursor.com/en/install-mcp?name=rag-memory-pg&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsInJhZy1tZW1vcnktcGctbWNwIl0sImVudiI6eyJTVVBBQkFTRV9VUkwiOiJodHRwczovL3lvdXItcHJvamVjdC5zdXBhYmFzZS5jbyIsIlNVUEFCQVNFX1NFUlZJQ0VfS0VZIjoieW91ci1zZXJ2aWNlLWtleSJ9fQ%3D%3D">
+    <img src="https://cursor.com/deeplink/mcp-install-dark.svg" alt="Install in Cursor">
+  </a>
+</picture>
+&nbsp;&nbsp;
+<a href="https://files.lmstudio.ai/install-mcp?name=rag-memory-pg&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsInJhZy1tZW1vcnktcGctbWNwIl0sImVudiI6eyJTVVBBQkFTRV9VUkwiOiJodHRwczovL3lvdXItcHJvamVjdC5zdXBhYmFzZS5jbyIsIlNVUEFCQVNFX1NFUlZJQ0VfS0VZIjoieW91ci1zZXJ2aWNlLWtleSJ9fQ%3D%3D">
+  <img src="https://files.lmstudio.ai/deeplink/mcp-install-light.svg" alt="Install in LM Studio">
+</a>
+&nbsp;&nbsp;
+[![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_Server-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://vscode.dev/redirect/mcp/install?name=rag-memory-pg&config=%7B%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22rag-memory-pg-mcp%22%5D%2C%22type%22%3A%22stdio%22%7D)
+
+> **Note:** Click buttons above for automatic installation. Cursor & LM Studio have official SVG buttons!
 
 ---
 
