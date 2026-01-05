@@ -23,7 +23,7 @@ jobs:
           echo "🔍 Scanning for potential secrets..."
           
           # Check for API keys
-          if grep -r "sk-proj-" --exclude-dir=node_modules --exclude-dir=.git . ; then
+          if grep -rE "(sk-proj-[A-Za-z0-9]{20,}|sk-[A-Za-z0-9]{20,})" --exclude-dir=node_modules --exclude-dir=.git . ; then
             echo "❌ Found OpenAI API key!"
             exit 1
           fi
