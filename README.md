@@ -9,12 +9,10 @@ A Model Context Protocol (MCP) server for RAG-enabled memory with PostgreSQL/Sup
 
 ## 🚀 Quick Install
 
-**Choose your AI IDE:**
-
-[![Install in Cursor](https://img.shields.io/badge/Cursor-Install_Server-0078D7?style=for-the-badge&logo=visual-studio-code&logoColor=white)](#cursor)
-[![Install in Claude Desktop](https://img.shields.io/badge/Claude_Desktop-Install_Server-000000?style=for-the-badge&logo=anthropic&logoColor=white)](#claude-desktop)
-[![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_Server-0098FF?style=for-the-badge&logo=visual-studio-code&logoColor=white)](#vs-code)
-[![Install in Windsurf](https://img.shields.io/badge/Windsurf-Install_Server-24bfa5?style=for-the-badge&logoColor=white)](#windsurf)
+[![Install in Cursor](https://img.shields.io/badge/Cursor-Install_Server-0078D7?style=flat-square&logo=visual-studio-code&logoColor=white)](#cursor)
+[![Install in Claude Desktop](https://img.shields.io/badge/Claude_Desktop-Install_Server-000000?style=flat-square&logoColor=white)](#claude-desktop)
+[![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_Server-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](#vs-code)
+[![Install in Windsurf](https://img.shields.io/badge/Windsurf-Install_Server-24bfa5?style=flat-square&logoColor=white)](#windsurf)
 
 ---
 
