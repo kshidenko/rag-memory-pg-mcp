@@ -1,0 +1,51 @@
+name: Security Check
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  check-secrets:
+    runs-on: ubuntu-latest
+    name: Check for leaked secrets
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check for secrets in code
+        run: |
+          # Check for common secret patterns
+          echo "🔍 Scanning for potential secrets..."
+          
+          # Check for API keys
+          if grep -r "sk-proj-" --exclude-dir=node_modules --exclude-dir=.git . ; then
+            echo "❌ Found OpenAI API key!"
+            exit 1
+          fi
+          
+          # Check for JWT tokens
+          if grep -r "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\.eyJ" --exclude-dir=node_modules --exclude-dir=.git . ; then
+            echo "❌ Found JWT token!"
+            exit 1
+          fi
+          
+          # Check for Supabase project IDs
+          if grep -r "supabase\.co" --exclude-dir=node_modules --exclude-dir=.git --exclude="*.md" --exclude=".env.example" . ; then
+            echo "❌ Found Supabase URL in code!"
+            exit 1
+          fi
+          
+          echo "✅ No secrets detected"
+
+      - name: Check .env files not committed
+        run: |
+          if [ -f .env ] || [ -f .env.local ]; then
+            echo "❌ .env file found in repository!"
+            exit 1
+          fi
+          echo "✅ No .env files committed"

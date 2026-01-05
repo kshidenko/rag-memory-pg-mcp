@@ -1,10 +1,10 @@
 # Quick Setup Guide
 
-## ✅ Вы уже настроены на OpenAI!
+## ✅ OpenAI Embeddings Setup
 
-Ваша конфигурация `~/.cursor/mcp.json` обновлена и использует **OpenAI embeddings** для максимальной скорости.
+Configure your `~/.cursor/mcp.json` to use **OpenAI embeddings** for maximum speed.
 
-## Текущая конфигурация:
+## Configuration Example:
 
 ```json
 {
@@ -13,15 +13,19 @@
       "command": "npx",
       "args": ["-y", "rag-memory-pg-mcp"],
       "env": {
-        "SUPABASE_URL": "https://qystmdysjemiqlqmhfbh.supabase.co",
-        "SUPABASE_SERVICE_KEY": "eyJ...",
+        "SUPABASE_URL": "https://your-project.supabase.co",
+        "SUPABASE_SERVICE_KEY": "your-service-role-key",
         "EMBEDDING_PROVIDER": "OPENAI",
-        "OPENAI_API_KEY": "sk-proj-..."
+        "OPENAI_API_KEY": "sk-your-openai-api-key"
       }
     }
   }
 }
 ```
+
+**Replace with your actual credentials:**
+- Get Supabase credentials: https://app.supabase.com/project/_/settings/api
+- Get OpenAI API key: https://platform.openai.com/api-keys
 
 ## Что дальше?
 
@@ -73,7 +77,7 @@ npx clear-npx-cache
 Удалите эти строки из `~/.cursor/mcp.json`:
 ```json
 "EMBEDDING_PROVIDER": "OPENAI",
-"OPENAI_API_KEY": "sk-proj-..."
+        "OPENAI_API_KEY": "sk-your-openai-api-key"
 ```
 
 ### Проблемы с OpenAI:
@@ -83,8 +87,12 @@ npx clear-npx-cache
 ## Тестирование локально
 
 ```bash
-cd /Volumes/ExternalOne/git/rag-memory-pg-mcp
-EMBEDDING_PROVIDER=OPENAI OPENAI_API_KEY=sk-... node test-openai-embeddings.js
+cd /path/to/rag-memory-pg-mcp
+SUPABASE_URL="https://your-project.supabase.co" \
+SUPABASE_SERVICE_KEY="your-service-key" \
+EMBEDDING_PROVIDER=OPENAI \
+OPENAI_API_KEY="sk-your-key" \
+node test-openai-embeddings.js
 ```
 
 Ожидаемый результат:

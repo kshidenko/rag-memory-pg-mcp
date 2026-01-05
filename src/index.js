@@ -28,11 +28,12 @@ import { handleToolCall, createErrorResponse } from './handlers.js';
 
 // ==================== CONFIGURATION ====================
 
-const SUPABASE_URL = process.env.SUPABASE_URL || 'https://qystmdysjemiqlqmhfbh.supabase.co';
+const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_KEY = process.env.SUPABASE_SERVICE_KEY;
 
-if (!SUPABASE_KEY) {
-  console.error('❌ Error: SUPABASE_SERVICE_KEY environment variable is required');
+if (!SUPABASE_URL || !SUPABASE_KEY) {
+  console.error('❌ Error: SUPABASE_URL and SUPABASE_SERVICE_KEY environment variables are required');
+  console.error('   Set them in your MCP configuration or .env file');
   process.exit(1);
 }
 
