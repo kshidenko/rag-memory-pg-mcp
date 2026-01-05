@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.1] - 2026-01-05
+
+### Added ✨
+- **Server instructions** for AI models with key principles and workflows
+- **Pre-defined prompts** (store-knowledge, search-knowledge, explore-graph)
+- **Enhanced tool descriptions** following MCP best practices
+- Prominent **English language requirement** warnings throughout
+
+### Changed
+- All tool descriptions now include examples and use cases
+- Parameter descriptions are more detailed and actionable
+- Better guidance for AI models on tool selection
+
+### Documentation
+- Added language requirement warnings in README
+- Server metadata includes comprehensive instructions
+- Prompts provide guided workflows for common tasks
+
 ## [2.1.0] - 2026-01-05
 
 ### Added ✨

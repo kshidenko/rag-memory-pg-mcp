@@ -62,7 +62,7 @@ console.error(`📊 Active tools: ${activeTools.length}/${allTools.length}`);
 const server = new Server(
   {
     name: 'rag-memory-pg',
-    version: '2.1.0',
+    version: '2.1.1',
     description: 'RAG-enabled memory with PostgreSQL/Supabase backend. Provides knowledge graph, document management, and semantic search. All content should be in English for optimal performance.',
     instructions: `This is a RAG (Retrieval-Augmented Generation) memory system with knowledge graph capabilities.
 
