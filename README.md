@@ -12,15 +12,15 @@ A Model Context Protocol (MCP) server for RAG-enabled memory with PostgreSQL/Sup
 **One-click installation for your IDE:**
 
 <p align="left">
-  <a href="https://cursor.com/en/install-mcp?name=rag-memory-pg&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsInJhZy1tZW1vcnktcGctbWNwIl0sImVudiI6eyJTVVBBQkFTRV9VUkwiOiJodHRwczovL3lvdXItcHJvamVjdC5zdXBhYmFzZS5jbyIsIlNVUEFCQVNFX1NFUlZJQ0VfS0VZIjoieW91ci1zZXJ2aWNlLWtleSJ9fQ%3D%3D">
+  <a href="https://cursor.com/en/install-mcp?name=rag-memory-pg&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsInJhZy1tZW1vcnktcGctbWNwIl0sImVudiI6eyJTVVBBQkFTRV9VUkwiOiJodHRwczovL3lvdXItcHJvamVjdC5zdXBhYmFzZS5jbyIsIlNVUEFCQVNFX1NFUlZJQ0VfS0VZIjoieW91ci1zZXJ2aWNlLWtleSIsIk1PREUiOiJsb2NhbCIsIk9QRU5BSV9BUElfS0VZIjoic2steW91ci1hcGkta2V5In19">
     <img src="https://cursor.com/deeplink/mcp-install-dark.svg" alt="Install in Cursor" style="vertical-align: middle;">
   </a>
   &nbsp;&nbsp;
-  <a href="https://lmstudio.ai/install-mcp?name=rag-memory-pg&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsInJhZy1tZW1vcnktcGctbWNwIl0sImVudiI6eyJTVVBBQkFTRV9VUkwiOiJodHRwczovL3lvdXItcHJvamVjdC5zdXBhYmFzZS5jbyIsIlNVUEFCQVNFX1NFUlZJQ0VfS0VZIjoieW91ci1zZXJ2aWNlLWtleSJ9fQ%3D%3D">
+  <a href="https://lmstudio.ai/install-mcp?name=rag-memory-pg&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsInJhZy1tZW1vcnktcGctbWNwIl0sImVudiI6eyJTVVBBQkFTRV9VUkwiOiJodHRwczovL3lvdXItcHJvamVjdC5zdXBhYmFzZS5jbyIsIlNVUEFCQVNFX1NFUlZJQ0VfS0VZIjoieW91ci1zZXJ2aWNlLWtleSIsIk1PREUiOiJsb2NhbCIsIk9QRU5BSV9BUElfS0VZIjoic2steW91ci1hcGkta2V5In19">
     <img src="https://files.lmstudio.ai/deeplink/mcp-install-light.svg" alt="Install in LM Studio" style="vertical-align: middle;">
   </a>
   &nbsp;&nbsp;
-  <a href="https://vscode.dev/redirect/mcp/install?name=rag-memory-pg&config=%7B%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22rag-memory-pg-mcp%22%5D%2C%22type%22%3A%22stdio%22%7D">
+  <a href="https://vscode.dev/redirect/mcp/install?name=rag-memory-pg&config=%7B%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22rag-memory-pg-mcp%22%5D%2C%22env%22%3A%7B%22SUPABASE_URL%22%3A%22https%3A%2F%2Fyour-project.supabase.co%22%2C%22SUPABASE_SERVICE_KEY%22%3A%22your-service-key%22%2C%22MODE%22%3A%22local%22%2C%22OPENAI_API_KEY%22%3A%22sk-your-api-key%22%7D%2C%22type%22%3A%22stdio%22%7D">
     <img src="https://img.shields.io/badge/VS_Code-Install_Server-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white" alt="Install in VS Code" style="vertical-align: middle;">
   </a>
 </p>
@@ -49,18 +49,17 @@ Add to `~/.cursor/mcp.json`:
       "args": ["-y", "rag-memory-pg-mcp"],
       "env": {
         "SUPABASE_URL": "https://your-project.supabase.co",
-        "SUPABASE_SERVICE_KEY": "your-service-key"
+        "SUPABASE_SERVICE_KEY": "your-service-key",
+        "MODE": "local",
+        "OPENAI_API_KEY": "sk-your-api-key"
       }
     }
   }
 }
 ```
 
-**Optional: Use OpenAI for 10-100x faster embeddings** (add to `env` above):
-```json
-"EMBEDDING_PROVIDER": "OPENAI",
-"OPENAI_API_KEY": "sk-your-api-key"
-```
+**To use OpenAI** (10-100x faster): Change `MODE` to `"openai"` and add your real OpenAI key.  
+**MODE=local** (default): Free, private, slower - ignores `OPENAI_API_KEY`.
 
 Then restart Cursor.
 
@@ -76,18 +75,17 @@ Add to `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS)
       "args": ["-y", "rag-memory-pg-mcp"],
       "env": {
         "SUPABASE_URL": "https://your-project.supabase.co",
-        "SUPABASE_SERVICE_KEY": "your-service-key"
+        "SUPABASE_SERVICE_KEY": "your-service-key",
+        "MODE": "local",
+        "OPENAI_API_KEY": "sk-your-api-key"
       }
     }
   }
 }
 ```
 
-**Optional: Use OpenAI for 10-100x faster embeddings** (add to `env` above):
-```json
-"EMBEDDING_PROVIDER": "OPENAI",
-"OPENAI_API_KEY": "sk-your-api-key"
-```
+**To use OpenAI** (10-100x faster): Change `MODE` to `"openai"` and add your real OpenAI key.  
+**MODE=local** (default): Free, private, slower - ignores `OPENAI_API_KEY`.
 
 Then restart Claude Desktop.
 
@@ -104,18 +102,17 @@ Add to `.vscode/mcp.json` in your workspace:
       "args": ["-y", "rag-memory-pg-mcp"],
       "env": {
         "SUPABASE_URL": "https://your-project.supabase.co",
-        "SUPABASE_SERVICE_KEY": "your-service-key"
+        "SUPABASE_SERVICE_KEY": "your-service-key",
+        "MODE": "local",
+        "OPENAI_API_KEY": "sk-your-api-key"
       }
     }
   }
 }
 ```
 
-**Optional: Use OpenAI for 10-100x faster embeddings** (add to `env` above):
-```json
-"EMBEDDING_PROVIDER": "OPENAI",
-"OPENAI_API_KEY": "sk-your-api-key"
-```
+**To use OpenAI** (10-100x faster): Change `MODE` to `"openai"` and add your real OpenAI key.  
+**MODE=local** (default): Free, private, slower - ignores `OPENAI_API_KEY`.
 
 Then reload VS Code window.
 
@@ -131,18 +128,17 @@ Add to `~/.windsurf/mcp.json`:
       "args": ["-y", "rag-memory-pg-mcp"],
       "env": {
         "SUPABASE_URL": "https://your-project.supabase.co",
-        "SUPABASE_SERVICE_KEY": "your-service-key"
+        "SUPABASE_SERVICE_KEY": "your-service-key",
+        "MODE": "local",
+        "OPENAI_API_KEY": "sk-your-api-key"
       }
     }
   }
 }
 ```
 
-**Optional: Use OpenAI for 10-100x faster embeddings** (add to `env` above):
-```json
-"EMBEDDING_PROVIDER": "OPENAI",
-"OPENAI_API_KEY": "sk-your-api-key"
-```
+**To use OpenAI** (10-100x faster): Change `MODE` to `"openai"` and add your real OpenAI key.  
+**MODE=local** (default): Free, private, slower - ignores `OPENAI_API_KEY`.
 
 Then restart Windsurf.
 
@@ -177,8 +173,8 @@ npm install -g github:kshidenko/rag-memory-pg-mcp
 |----------|----------|-------------|
 | `SUPABASE_URL` | Yes | Your Supabase project URL |
 | `SUPABASE_SERVICE_KEY` | Yes | Supabase service role key |
-| `EMBEDDING_PROVIDER` | No | `LOCAL` (default) or `OPENAI` |
-| `OPENAI_API_KEY` | No | Required if `EMBEDDING_PROVIDER=OPENAI` |
+| `MODE` | No | `local` (default) or `openai` |
+| `OPENAI_API_KEY` | No | Only used when `MODE=openai` |
 
 ## Available Tools (21 total)
 
@@ -332,63 +328,27 @@ CREATE TABLE rag_entity_embeddings (
 );
 ```
 
-## Embedding Models
+## Embedding Modes
 
-### Local (Default) - Privacy-Focused
-Uses **Xenova/all-MiniLM-L12-v2** via HuggingFace Transformers:
-- ✅ Runs locally (no API keys needed)
-- ✅ Complete privacy (data never leaves your machine)
-- ✅ Free unlimited usage
-- ⚠️ Slower performance (loads model ~50MB, CPU-based)
+The server supports two embedding modes controlled by the `MODE` environment variable:
+
+| Mode | Speed | Cost | Privacy | Setup |
+|------|-------|------|---------|-------|
+| **local** (default) | Slower | Free | 100% | Zero config |
+| **openai** | **10-100x faster** | ~$0.02/1M tokens | Cloud | API key required |
+
+### Local Mode (Default)
+- Uses **Xenova/all-MiniLM-L12-v2** via HuggingFace Transformers
+- Runs locally (data never leaves your machine)
+- ~50MB model download on first run
 - 384-dimensional vectors
 
-### OpenAI - Fast & Cloud-Based
-Uses **text-embedding-3-small**:
-- ✅ Much faster (10-100x vs local)
-- ✅ No local resources needed
-- ✅ Always up-to-date
-- ⚠️ Requires API key and internet
-- ⚠️ Costs ~$0.02 per 1M tokens
+### OpenAI Mode
+- Uses **text-embedding-3-small**
+- Much faster, no local resources needed
 - 384-dimensional vectors (configured for backward compatibility)
 
-### Configuration
-
-**Local (default):**
-```json
-{
-  "mcpServers": {
-    "rag-memory": {
-      "command": "npx",
-      "args": ["-y", "rag-memory-pg-mcp"],
-      "env": {
-        "SUPABASE_URL": "https://your-project.supabase.co",
-        "SUPABASE_SERVICE_KEY": "your-service-key"
-      }
-    }
-  }
-}
-```
-
-**OpenAI (faster):**
-```json
-{
-  "mcpServers": {
-    "rag-memory": {
-      "command": "npx",
-      "args": ["-y", "rag-memory-pg-mcp"],
-      "env": {
-        "SUPABASE_URL": "https://your-project.supabase.co",
-        "SUPABASE_SERVICE_KEY": "your-service-key",
-        "EMBEDDING_PROVIDER": "OPENAI",
-        "OPENAI_API_KEY": "sk-..."
-      }
-    }
-  }
-}
-```
-
-**Backward Compatibility:**
-Both providers generate 384-dimensional vectors and store them identically in PostgreSQL. You can switch between providers at any time - existing embeddings remain valid and searchable.
+**Switching modes:** Just change `MODE` from `"local"` to `"openai"` in your config. Both modes produce compatible 384-dim vectors, so existing embeddings remain valid.
 
 ## Development
 

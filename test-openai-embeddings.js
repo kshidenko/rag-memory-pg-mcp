@@ -3,7 +3,10 @@
  * Test script to verify OpenAI embeddings work correctly
  * 
  * Usage:
- *   EMBEDDING_PROVIDER=OPENAI OPENAI_API_KEY=sk-... node test-openai-embeddings.js
+ *   MODE=openai OPENAI_API_KEY=sk-... node test-openai-embeddings.js
+ * 
+ * Or test local mode:
+ *   MODE=local node test-openai-embeddings.js
  */
 
 import { RAGKnowledgeGraphManager } from './src/manager.js';
@@ -12,11 +15,11 @@ async function testOpenAIEmbeddings() {
   console.log('🧪 Testing OpenAI Embeddings Integration...\n');
   
   // Check env vars
-  const provider = process.env.EMBEDDING_PROVIDER || 'LOCAL';
+  const mode = (process.env.MODE || 'local').toLowerCase();
   const hasOpenAIKey = !!process.env.OPENAI_API_KEY;
   
   console.log(`📋 Configuration:`);
-  console.log(`   EMBEDDING_PROVIDER: ${provider}`);
+  console.log(`   MODE: ${mode}`);
   console.log(`   OPENAI_API_KEY: ${hasOpenAIKey ? '✅ Set' : '❌ Not set'}`);
   console.log();
   
@@ -44,7 +47,7 @@ async function testOpenAIEmbeddings() {
   console.log(`✅ Embedding generated in ${duration}ms`);
   console.log(`   Dimensions: ${embedding.length}`);
   console.log(`   First 5 values: [${embedding.slice(0, 5).map(v => v.toFixed(4)).join(', ')}...]`);
-  console.log(`   Provider used: ${manager.embeddingProvider}`);
+  console.log(`   Mode used: ${manager.mode}`);
   
   // Verify dimensions
   if (embedding.length !== 384) {
@@ -63,7 +66,7 @@ async function testOpenAIEmbeddings() {
   const avgTime = (Date.now() - perfStart) / 5;
   console.log(`   Average time: ${avgTime.toFixed(0)}ms per embedding`);
   
-  if (provider === 'OPENAI') {
+  if (mode === 'openai') {
     console.log(`   Expected: 50-200ms (OpenAI is fast!)`);
   } else {
     console.log(`   Expected: 200-2000ms (Local model)`);

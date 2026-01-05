@@ -22,17 +22,17 @@ export class RAGKnowledgeGraphManager {
     this.embeddingModel = null;
     this.modelInitialized = false;
     
-    // Embedding provider configuration
-    this.embeddingProvider = process.env.EMBEDDING_PROVIDER || 'LOCAL'; // LOCAL or OPENAI
+    // Embedding mode configuration (local or openai)
+    this.mode = (process.env.MODE || 'local').toLowerCase();
     this.openaiClient = null;
     
-    // Initialize OpenAI if configured
-    if (this.embeddingProvider === 'OPENAI' && process.env.OPENAI_API_KEY) {
+    // Initialize OpenAI if mode is openai
+    if (this.mode === 'openai' && process.env.OPENAI_API_KEY) {
       this.openaiClient = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
       console.error('🌐 Using OpenAI embeddings (text-embedding-3-small, 384 dims)');
-    } else if (this.embeddingProvider === 'OPENAI') {
-      console.error('⚠️  OPENAI provider selected but OPENAI_API_KEY not set, falling back to LOCAL');
-      this.embeddingProvider = 'LOCAL';
+    } else if (this.mode === 'openai') {
+      console.error('⚠️  MODE=openai but OPENAI_API_KEY not set, falling back to local');
+      this.mode = 'local';
     }
   }
 
@@ -51,11 +51,11 @@ export class RAGKnowledgeGraphManager {
   }
 
   /**
-   * Initialize the embedding model (HuggingFace Transformers for LOCAL mode)
+   * Initialize the embedding model (HuggingFace Transformers for local mode)
    */
   async initializeEmbeddingModel() {
     // Skip local model initialization if using OpenAI
-    if (this.embeddingProvider === 'OPENAI') {
+    if (this.mode === 'openai') {
       this.modelInitialized = true;
       console.error('✅ OpenAI embeddings ready');
       return;
@@ -92,7 +92,7 @@ export class RAGKnowledgeGraphManager {
     
     try {
       // OpenAI embeddings (faster, cloud-based)
-      if (this.embeddingProvider === 'OPENAI' && this.openaiClient) {
+      if (this.mode === 'openai' && this.openaiClient) {
         const response = await this.openaiClient.embeddings.create({
           model: 'text-embedding-3-small',
           input: text,
