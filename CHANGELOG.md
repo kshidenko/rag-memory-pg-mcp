@@ -1,0 +1,109 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [1.2.1] - 2026-01-05
+
+### Security 🔒
+- **BREAKING**: Removed hardcoded Supabase URL from `src/index.js`
+- **BREAKING**: `SUPABASE_URL` is now required as environment variable
+- Removed all real credentials from documentation
+- Added GitHub Actions security check workflow
+- Added comprehensive `SECURITY.md`
+- Added `CONTRIBUTING.md` with PR workflow
+- Added `GITHUB_SETUP.md` for repository protection
+
+### Changed
+- Updated error messages when environment variables are missing
+- Improved documentation with placeholder credentials only
+
+### Added
+- Automated secret scanning in CI/CD
+- Branch protection setup guide
+- Security best practices documentation
+
+## [1.2.0] - 2026-01-05
+
+### Added ✨
+- **OpenAI embeddings support** (opt-in via `EMBEDDING_PROVIDER=OPENAI`)
+- Dual provider architecture: LOCAL (HuggingFace) or OPENAI
+- 10-100x faster embeddings with OpenAI
+- Full backward compatibility (both use 384-dimensional vectors)
+- `.env.example` for configuration reference
+- `test-openai-embeddings.js` for testing both providers
+- `MIGRATION.md` guide
+- `SETUP.md` for quick configuration
+
+### Changed
+- Embedding generation now supports multiple providers
+- OpenAI uses `text-embedding-3-small` with 384 dimensions
+- Automatic fallback to LOCAL if OpenAI not configured
+
+### Dependencies
+- Added `openai@^4.77.0`
+
+## [1.1.0] - 2026-01-05
+
+### Changed
+- Refactored codebase into modular architecture:
+  - `src/index.js` (93 lines) - Server entry point
+  - `src/manager.js` (909 lines) - RAGKnowledgeGraphManager
+  - `src/tools.js` (320 lines) - Tool definitions
+  - `src/handlers.js` (142 lines) - Request handlers
+- Improved code organization and maintainability
+- Better separation of concerns
+
+### Added
+- Comprehensive README
+- Documentation improvements
+- `processDocument` tool for full pipeline (store → chunk → embed)
+
+## [1.0.0] - 2025-12-20
+
+### Added
+- Initial release
+- Knowledge graph with entities, relationships, observations
+- Document processing: store, chunk, embed
+- Semantic search with local HuggingFace model (Xenova/all-MiniLM-L12-v2)
+- Hybrid search (text + semantic)
+- PostgreSQL/Supabase backend with pgvector
+- 21 MCP tools for RAG operations
+- Multi-machine sync via shared database
+
+---
+
+## Migration Guides
+
+### 1.1.0 → 1.2.1
+
+**Required changes:**
+```json
+{
+  "env": {
+    "SUPABASE_URL": "https://your-project.supabase.co",  // Now REQUIRED
+    "SUPABASE_SERVICE_KEY": "your-key"
+  }
+}
+```
+
+**Optional (for OpenAI):**
+```json
+{
+  "env": {
+    "EMBEDDING_PROVIDER": "OPENAI",
+    "OPENAI_API_KEY": "sk-your-key"
+  }
+}
+```
+
+### Security Note
+- All credentials must now come from environment variables
+- Never commit `.env` files or real credentials
+- Use placeholders in documentation
+
+---
+
+**For detailed upgrade instructions, see [MIGRATION.md](MIGRATION.md)**
