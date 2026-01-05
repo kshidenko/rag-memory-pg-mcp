@@ -2,15 +2,25 @@
 
 [![npm version](https://img.shields.io/npm/v/rag-memory-pg-mcp.svg)](https://www.npmjs.com/package/rag-memory-pg-mcp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Fast Start](https://img.shields.io/badge/🚀_Fast_Start-Install_to_Cursor-blue?style=for-the-badge)](#quick-start)
 
 A Model Context Protocol (MCP) server for RAG-enabled memory with PostgreSQL/Supabase backend. Provides knowledge graph, document management, and semantic search capabilities.
 
-## ⚡ Fast Start - Install to Cursor
+---
 
-**1-Click Setup:**
+## 🚀 Quick Install
 
-Add this to your `~/.cursor/mcp.json`:
+**Choose your AI IDE:**
+
+[![Install in Cursor](https://img.shields.io/badge/Cursor-Install_Server-0078D7?style=for-the-badge&logo=visual-studio-code&logoColor=white)](#cursor)
+[![Install in Claude Desktop](https://img.shields.io/badge/Claude_Desktop-Install_Server-000000?style=for-the-badge&logo=anthropic&logoColor=white)](#claude-desktop)
+[![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_Server-0098FF?style=for-the-badge&logo=visual-studio-code&logoColor=white)](#vs-code)
+[![Install in Windsurf](https://img.shields.io/badge/Windsurf-Install_Server-24bfa5?style=for-the-badge&logoColor=white)](#windsurf)
+
+---
+
+### Cursor
+
+Add to `~/.cursor/mcp.json`:
 
 ```json
 {
@@ -27,17 +37,78 @@ Add this to your `~/.cursor/mcp.json`:
 }
 ```
 
-**Get your credentials:**
-- Supabase: https://app.supabase.com/project/_/settings/api
-- OpenAI (optional, for faster embeddings): https://platform.openai.com/api-keys
+Then restart Cursor.
 
-**Then restart Cursor!** 🎉
+### Claude Desktop
 
-<details>
-<summary><b>📹 Video Tutorial (Coming Soon)</b></summary>
+Add to `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) or `%APPDATA%\Claude\claude_desktop_config.json` (Windows):
 
-Watch how to set up in 60 seconds.
-</details>
+```json
+{
+  "mcpServers": {
+    "rag-memory-pg": {
+      "command": "npx",
+      "args": ["-y", "rag-memory-pg-mcp"],
+      "env": {
+        "SUPABASE_URL": "https://your-project.supabase.co",
+        "SUPABASE_SERVICE_KEY": "your-service-key"
+      }
+    }
+  }
+}
+```
+
+Then restart Claude Desktop.
+
+### VS Code
+
+Add to `.vscode/mcp.json` in your workspace:
+
+```json
+{
+  "servers": {
+    "rag-memory-pg": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "rag-memory-pg-mcp"],
+      "env": {
+        "SUPABASE_URL": "https://your-project.supabase.co",
+        "SUPABASE_SERVICE_KEY": "your-service-key"
+      }
+    }
+  }
+}
+```
+
+Then reload VS Code window.
+
+### Windsurf
+
+Add to `~/.windsurf/mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "rag-memory-pg": {
+      "command": "npx",
+      "args": ["-y", "rag-memory-pg-mcp"],
+      "env": {
+        "SUPABASE_URL": "https://your-project.supabase.co",
+        "SUPABASE_SERVICE_KEY": "your-service-key"
+      }
+    }
+  }
+}
+```
+
+Then restart Windsurf.
+
+---
+
+### 🔑 Get Your Credentials
+
+- **Supabase:** https://app.supabase.com/project/_/settings/api
+- **OpenAI** (optional, for faster embeddings): https://platform.openai.com/api-keys
 
 ---
 
