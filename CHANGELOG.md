@@ -9,8 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added ✨
 - **TOOLS_MODE environment variable** for flexible tool sets
-- `TOOLS_MODE=client` - 11 essential tools for daily memory operations (recommended)
-- `TOOLS_MODE=maintenance` - 10 admin/cleanup tools for database management
+- `TOOLS_MODE=client` - 10 essential tools for daily memory operations (recommended)
+- `TOOLS_MODE=maintenance` - 11 admin/cleanup tools for database management
 - `TOOLS_MODE=full` - All 21 tools (default)
 - Automatic updates via `@latest` in all npx commands
 - UPDATE_GUIDE.md with update instructions

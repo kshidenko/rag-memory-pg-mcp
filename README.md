@@ -184,19 +184,19 @@ npm install -g github:kshidenko/rag-memory-pg-mcp
 ### Tools Mode
 
 - **`full`** (default) - All 21 tools for complete functionality
-- **`client`** - 11 essential tools for daily memory operations (recommended for most users)
-- **`maintenance`** - 10 admin/cleanup tools for database management
+- **`client`** - 10 essential tools for daily memory operations (recommended for most users)
+- **`maintenance`** - 11 admin/cleanup tools for database management
 
 <details>
 <summary><b>Tools by Mode</b></summary>
 
-**CLIENT mode (11 tools) - Recommended for daily use:**
+**CLIENT mode (10 tools) - Recommended for daily use:**
 - Knowledge Graph: createEntities, createRelations, addObservations, searchNodes, openNodes
 - Documents: processDocument (⭐ main tool)
 - Search: hybridSearch, getDetailedContext
 - Info: readGraph, getKnowledgeGraphStats
 
-**MAINTENANCE mode (10 tools) - For cleanup and admin:**
+**MAINTENANCE mode (11 tools) - For cleanup and admin:**
 - Cleanup: deleteEntities, deleteRelations, deleteObservations, deleteDocuments
 - Advanced: storeDocument, chunkDocument, embedChunks, embedAllEntities
 - Utilities: listDocuments, extractTerms, linkEntitiesToDocument

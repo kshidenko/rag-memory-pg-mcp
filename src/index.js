@@ -41,8 +41,8 @@ if (!SUPABASE_URL || !SUPABASE_KEY) {
 
 // Log active tools mode
 const modeDescriptions = {
-  client: 'CLIENT mode (11 essential tools for daily use)',
-  maintenance: 'MAINTENANCE mode (10 admin/cleanup tools)',
+  client: 'CLIENT mode (10 essential tools for daily use)',
+  maintenance: 'MAINTENANCE mode (11 admin/cleanup tools)',
   full: 'FULL mode (all 21 tools)'
 };
 console.error(`🔧 Tools: ${modeDescriptions[TOOLS_MODE] || 'FULL mode (default)'}`);
