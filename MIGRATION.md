@@ -1,4 +1,29 @@
-# Migration Guide: v1.1.0 → v1.2.0
+# Migration Guide
+
+## v1.x → v2.0.0 (Latest)
+
+### ⚠️ BREAKING CHANGE: Environment Variable Renamed
+
+**Old:**
+```bash
+EMBEDDING_PROVIDER=OPENAI  # ❌ Deprecated
+```
+
+**New:**
+```bash
+MODE=openai  # ✅ Use this instead
+```
+
+**Migration:**
+Simply rename the environment variable in your config:
+- `EMBEDDING_PROVIDER=LOCAL` → `MODE=local`
+- `EMBEDDING_PROVIDER=OPENAI` → `MODE=openai`
+
+**Why?** Simpler, clearer, more intuitive. MODE is lowercase for consistency.
+
+---
+
+## v1.1.0 → v1.2.0
 
 ## What's New in v1.2.0
 
