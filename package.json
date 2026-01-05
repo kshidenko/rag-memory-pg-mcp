@@ -34,7 +34,7 @@
   "author": "Kirill Shidenko <kirill@sociaro.com>",
   "license": "MIT",
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.0.4",
+    "@modelcontextprotocol/sdk": "^1.24.0",
     "@supabase/supabase-js": "^2.39.0",
     "@huggingface/transformers": "^3.0.0",
     "openai": "^4.77.0"
