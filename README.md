@@ -11,15 +11,15 @@ A Model Context Protocol (MCP) server for RAG-enabled memory with PostgreSQL/Sup
 
 **One-click installation for your IDE:**
 
-<p align="left">
+<p align="left" style="vertical-align: middle;">
   <a href="https://cursor.com/en/install-mcp?name=rag-memory-pg&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsInJhZy1tZW1vcnktcGctbWNwIl0sImVudiI6eyJTVVBBQkFTRV9VUkwiOiJodHRwczovL3lvdXItcHJvamVjdC5zdXBhYmFzZS5jbyIsIlNVUEFCQVNFX1NFUlZJQ0VfS0VZIjoieW91ci1zZXJ2aWNlLWtleSIsIk1PREUiOiJsb2NhbCIsIk9QRU5BSV9BUElfS0VZIjoic2steW91ci1hcGkta2V5In19">
     <img src="https://cursor.com/deeplink/mcp-install-dark.svg" alt="Install in Cursor" style="vertical-align: middle;">
   </a>
-  &nbsp;&nbsp;
+  
   <a href="https://lmstudio.ai/install-mcp?name=rag-memory-pg&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsInJhZy1tZW1vcnktcGctbWNwIl0sImVudiI6eyJTVVBBQkFTRV9VUkwiOiJodHRwczovL3lvdXItcHJvamVjdC5zdXBhYmFzZS5jbyIsIlNVUEFCQVNFX1NFUlZJQ0VfS0VZIjoieW91ci1zZXJ2aWNlLWtleSIsIk1PREUiOiJsb2NhbCIsIk9QRU5BSV9BUElfS0VZIjoic2steW91ci1hcGkta2V5In19">
     <img src="https://files.lmstudio.ai/deeplink/mcp-install-light.svg" alt="Install in LM Studio" style="vertical-align: middle;">
   </a>
-  &nbsp;&nbsp;
+  
   <a href="https://vscode.dev/redirect/mcp/install?name=rag-memory-pg&config=%7B%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22rag-memory-pg-mcp%22%5D%2C%22env%22%3A%7B%22SUPABASE_URL%22%3A%22https%3A%2F%2Fyour-project.supabase.co%22%2C%22SUPABASE_SERVICE_KEY%22%3A%22your-service-key%22%2C%22MODE%22%3A%22local%22%2C%22OPENAI_API_KEY%22%3A%22sk-your-api-key%22%7D%2C%22type%22%3A%22stdio%22%7D">
     <img src="https://img.shields.io/badge/VS_Code-Install_Server-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white" alt="Install in VS Code" style="vertical-align: middle;">
   </a>
