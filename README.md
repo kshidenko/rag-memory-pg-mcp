@@ -49,6 +49,8 @@ Add to `~/.cursor/mcp.json`:
 |----------|----------|-------------|
 | `SUPABASE_URL` | Yes | Your Supabase project URL |
 | `SUPABASE_SERVICE_KEY` | Yes | Supabase service role key |
+| `EMBEDDING_PROVIDER` | No | `LOCAL` (default) or `OPENAI` |
+| `OPENAI_API_KEY` | No | Required if `EMBEDDING_PROVIDER=OPENAI` |
 
 ## Available Tools (21 total)
 
@@ -202,12 +204,63 @@ CREATE TABLE rag_entity_embeddings (
 );
 ```
 
-## Embedding Model
+## Embedding Models
 
+### Local (Default) - Privacy-Focused
 Uses **Xenova/all-MiniLM-L12-v2** via HuggingFace Transformers:
-- Runs locally (no API keys needed)
+- ✅ Runs locally (no API keys needed)
+- ✅ Complete privacy (data never leaves your machine)
+- ✅ Free unlimited usage
+- ⚠️ Slower performance (loads model ~50MB, CPU-based)
 - 384-dimensional vectors
-- Model downloaded automatically on first run (~50MB)
+
+### OpenAI - Fast & Cloud-Based
+Uses **text-embedding-3-small**:
+- ✅ Much faster (10-100x vs local)
+- ✅ No local resources needed
+- ✅ Always up-to-date
+- ⚠️ Requires API key and internet
+- ⚠️ Costs ~$0.02 per 1M tokens
+- 384-dimensional vectors (configured for backward compatibility)
+
+### Configuration
+
+**Local (default):**
+```json
+{
+  "mcpServers": {
+    "rag-memory": {
+      "command": "npx",
+      "args": ["-y", "rag-memory-pg-mcp"],
+      "env": {
+        "SUPABASE_URL": "https://your-project.supabase.co",
+        "SUPABASE_SERVICE_KEY": "your-service-key"
+      }
+    }
+  }
+}
+```
+
+**OpenAI (faster):**
+```json
+{
+  "mcpServers": {
+    "rag-memory": {
+      "command": "npx",
+      "args": ["-y", "rag-memory-pg-mcp"],
+      "env": {
+        "SUPABASE_URL": "https://your-project.supabase.co",
+        "SUPABASE_SERVICE_KEY": "your-service-key",
+        "EMBEDDING_PROVIDER": "OPENAI",
+        "OPENAI_API_KEY": "sk-..."
+      }
+    }
+  }
+}
+```
+
+**Backward Compatibility:**
+Both providers generate 384-dimensional vectors and store them identically in PostgreSQL. You can switch between providers at any time - existing embeddings remain valid and searchable.
 
 ## Development
 

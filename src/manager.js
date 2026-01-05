@@ -9,6 +9,7 @@
 
 import { createClient } from '@supabase/supabase-js';
 import { pipeline } from '@huggingface/transformers';
+import OpenAI from 'openai';
 
 /**
  * RAG Knowledge Graph Manager with PostgreSQL backend
@@ -20,6 +21,19 @@ export class RAGKnowledgeGraphManager {
     this.supabase = null;
     this.embeddingModel = null;
     this.modelInitialized = false;
+    
+    // Embedding provider configuration
+    this.embeddingProvider = process.env.EMBEDDING_PROVIDER || 'LOCAL'; // LOCAL or OPENAI
+    this.openaiClient = null;
+    
+    // Initialize OpenAI if configured
+    if (this.embeddingProvider === 'OPENAI' && process.env.OPENAI_API_KEY) {
+      this.openaiClient = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+      console.error('🌐 Using OpenAI embeddings (text-embedding-3-small, 384 dims)');
+    } else if (this.embeddingProvider === 'OPENAI') {
+      console.error('⚠️  OPENAI provider selected but OPENAI_API_KEY not set, falling back to LOCAL');
+      this.embeddingProvider = 'LOCAL';
+    }
   }
 
   /**
@@ -37,17 +51,25 @@ export class RAGKnowledgeGraphManager {
   }
 
   /**
-   * Initialize the embedding model (HuggingFace Transformers)
+   * Initialize the embedding model (HuggingFace Transformers for LOCAL mode)
    */
   async initializeEmbeddingModel() {
+    // Skip local model initialization if using OpenAI
+    if (this.embeddingProvider === 'OPENAI') {
+      this.modelInitialized = true;
+      console.error('✅ OpenAI embeddings ready');
+      return;
+    }
+    
+    // Load local HuggingFace model
     try {
-      console.error('🤖 Loading sentence transformer model...');
+      console.error('🤖 Loading local sentence transformer model...');
       this.embeddingModel = await pipeline(
         'feature-extraction',
         'Xenova/all-MiniLM-L12-v2'
       );
       this.modelInitialized = true;
-      console.error('✅ Embedding model loaded');
+      console.error('✅ Local embedding model loaded (384 dims)');
     } catch (error) {
       console.error('⚠️  Embedding model failed to load:', error.message);
       this.modelInitialized = false;
@@ -57,8 +79,11 @@ export class RAGKnowledgeGraphManager {
   /**
    * Generate embedding vector for text
    * 
+   * Uses either OpenAI (text-embedding-3-small) or local HuggingFace model.
+   * Both produce 384-dimensional vectors for backward compatibility.
+   * 
    * @param {string} text - Text to embed
-   * @returns {number[]|null} Embedding vector or null if model not initialized
+   * @returns {number[]|null} 384-dimensional embedding vector or null if failed
    */
   async generateEmbedding(text) {
     if (!this.modelInitialized) {
@@ -66,6 +91,17 @@ export class RAGKnowledgeGraphManager {
     }
     
     try {
+      // OpenAI embeddings (faster, cloud-based)
+      if (this.embeddingProvider === 'OPENAI' && this.openaiClient) {
+        const response = await this.openaiClient.embeddings.create({
+          model: 'text-embedding-3-small',
+          input: text,
+          dimensions: 384, // Match local model dimensions for compatibility
+        });
+        return response.data[0].embedding;
+      }
+      
+      // Local HuggingFace embeddings (slower, privacy-focused)
       const output = await this.embeddingModel(text, {
         pooling: 'mean',
         normalize: true,
