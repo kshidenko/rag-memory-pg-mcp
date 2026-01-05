@@ -50,18 +50,28 @@ export function getToolDefinitions() {
     },
     {
       name: 'createRelations',
-      description: 'Create relationships between entities',
+      description: 'Create relationships between existing entities in the knowledge graph. Use this to connect related concepts, show dependencies, or build knowledge networks. Relationship types should be in English.',
       inputSchema: {
         type: 'object',
         properties: {
           relations: {
             type: 'array',
+            description: 'Array of relationships to create between entities',
             items: {
               type: 'object',
               properties: {
-                from: { type: 'string' },
-                to: { type: 'string' },
-                relationType: { type: 'string' },
+                from: { 
+                  type: 'string',
+                  description: 'Source entity name (must exist). Example: "React"'
+                },
+                to: { 
+                  type: 'string',
+                  description: 'Target entity name (must exist). Example: "JavaScript"'
+                },
+                relationType: { 
+                  type: 'string',
+                  description: 'Relationship type in English. Examples: "BUILT_WITH", "USES", "DEPENDS_ON", "CREATED_BY", "PART_OF"'
+                },
               },
               required: ['from', 'to', 'relationType'],
             },
@@ -72,17 +82,25 @@ export function getToolDefinitions() {
     },
     {
       name: 'addObservations',
-      description: 'Add observations to existing entities',
+      description: 'Add new observations (facts, notes, details) to existing entities. Use this to enrich entities with additional information over time. All observations should be in English for consistency.',
       inputSchema: {
         type: 'object',
         properties: {
           observations: {
             type: 'array',
+            description: 'Array of observations to add to entities',
             items: {
               type: 'object',
               properties: {
-                entityName: { type: 'string' },
-                contents: { type: 'array', items: { type: 'string' } },
+                entityName: { 
+                  type: 'string',
+                  description: 'Name of existing entity. Example: "React"'
+                },
+                contents: { 
+                  type: 'array', 
+                  items: { type: 'string' },
+                  description: 'Array of new observations in English. Examples: ["Released version 18", "Added concurrent features", "Improved performance"]'
+                },
               },
               required: ['entityName', 'contents'],
             },
@@ -112,11 +130,15 @@ export function getToolDefinitions() {
     },
     {
       name: 'openNodes',
-      description: 'Get specific entities by name',
+      description: 'Get complete details of specific entities by their exact names. Returns entity type, all observations, and related connections. Use this to retrieve full information about known entities.',
       inputSchema: {
         type: 'object',
         properties: {
-          names: { type: 'array', items: { type: 'string' } },
+          names: { 
+            type: 'array', 
+            items: { type: 'string' },
+            description: 'Array of exact entity names to retrieve. Examples: ["React", "Next.js", "TypeScript"]'
+          },
         },
         required: ['names'],
       },
@@ -328,20 +350,22 @@ export function getToolDefinitions() {
     },
     {
       name: 'readGraph',
-      description: 'Read the entire knowledge graph',
+      description: 'Read the entire knowledge graph with all entities, relationships, and observations. Use this to get a complete overview of stored knowledge. Returns full graph structure for analysis or visualization.',
       inputSchema: {
         type: 'object',
         properties: {},
+        description: 'No parameters required. Returns complete graph with all entities and their connections.'
       },
     },
 
     // ==================== UTILITY TOOLS ====================
     {
       name: 'getKnowledgeGraphStats',
-      description: 'Get statistics about the knowledge graph',
+      description: 'Get statistics about the knowledge graph including total counts of entities, relationships, documents, and chunks. Use this to understand the size and scope of stored knowledge.',
       inputSchema: {
         type: 'object',
         properties: {},
+        description: 'No parameters required. Returns entity_count, relationship_count, document_count, chunk_count, and type distributions.'
       },
     },
     {
