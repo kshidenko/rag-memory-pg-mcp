@@ -1,19 +1,23 @@
 ---
 name: Feature Request
-about: Предложить новую функциональность
+about: Suggest a new feature
 title: '[FEATURE] '
 labels: enhancement
 assignees: ''
 ---
 
 ## 💡 Feature Description
-<!-- Опишите предлагаемую функциональность -->
+<!-- Describe the proposed feature -->
 
 ## 🎯 Use Case
-<!-- Зачем это нужно? Какую проблему решает? -->
+<!-- Why is this needed? What problem does it solve? -->
 
 ## 💻 Proposed Implementation
-<!-- Как это могло бы быть реализовано? (опционально) -->
+<!-- How could this be implemented? (optional) -->
 
 ## 📋 Additional Context
-<!-- Примеры, ссылки, скриншоты -->
+<!-- Examples, links, screenshots -->
+
+---
+
+**Related:** See [CONTRIBUTING.md](../../CONTRIBUTING.md) for contribution guidelines

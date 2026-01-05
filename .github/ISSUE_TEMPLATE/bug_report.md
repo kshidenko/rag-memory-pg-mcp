@@ -1,13 +1,13 @@
 ---
 name: Bug Report
-about: Сообщить о баге
+about: Report a bug
 title: '[BUG] '
 labels: bug
 assignees: ''
 ---
 
 ## 🐛 Bug Description
-<!-- Четкое описание бага -->
+<!-- Clear description of the bug -->
 
 ## 📝 Steps to Reproduce
 1. 
@@ -15,10 +15,10 @@ assignees: ''
 3. 
 
 ## ✅ Expected Behavior
-<!-- Что должно происходить -->
+<!-- What should happen -->
 
 ## ❌ Actual Behavior
-<!-- Что происходит на самом деле -->
+<!-- What actually happens -->
 
 ## 🖥️ Environment
 - **Node version:** 
@@ -27,8 +27,12 @@ assignees: ''
 - **Embedding provider:** LOCAL / OPENAI
 
 ## 📋 Additional Context
-<!-- Логи, скриншоты, и т.д. -->
+<!-- Logs, screenshots, etc. -->
 
 ```
-<!-- Вставьте логи здесь -->
+<!-- Paste logs here -->
 ```
+
+---
+
+**Related:** See [SECURITY.md](../../SECURITY.md) for security issues

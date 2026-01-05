@@ -1,26 +1,31 @@
 ## 📋 Description
-<!-- Опишите ваши изменения -->
+<!-- Describe your changes -->
 
 ## 🎯 Type of Change
-- [ ] 🐛 Bug fix (исправление бага)
-- [ ] ✨ New feature (новая функциональность)
-- [ ] 📚 Documentation update (обновление документации)
-- [ ] ♻️ Code refactoring (рефакторинг без изменения функциональности)
-- [ ] ⚡ Performance improvement (оптимизация производительности)
-- [ ] 🔒 Security fix (исправление уязвимости)
+- [ ] 🐛 Bug fix
+- [ ] ✨ New feature
+- [ ] 📚 Documentation update
+- [ ] ♻️ Code refactoring
+- [ ] ⚡ Performance improvement
+- [ ] 🔒 Security fix
 
 ## ✅ Checklist
-- [ ] Никаких секретов/ключей не закоммичено
-- [ ] Тесты проходят локально
-- [ ] Код следует стилю проекта
-- [ ] Документация обновлена (если нужно)
-- [ ] Изменения обратно совместимы (или указано BREAKING CHANGE)
+- [ ] No secrets/credentials committed
+- [ ] Tests pass locally
+- [ ] Code follows project style
+- [ ] Documentation updated (if needed)
+- [ ] Changes are backward compatible (or BREAKING CHANGE noted)
 
 ## 🧪 Testing
-<!-- Как вы тестировали изменения? -->
+<!-- How did you test these changes? -->
 
 ## 📸 Screenshots (if applicable)
-<!-- Скриншоты для UI изменений -->
+<!-- Screenshots for UI changes -->
 
 ## 📝 Additional Notes
-<!-- Дополнительная информация -->
+<!-- Additional information -->
+
+---
+
+**Related issues:** <!-- #123 -->
+**Documentation:** See [CONTRIBUTING.md](../CONTRIBUTING.md) for guidelines

@@ -279,6 +279,32 @@ node src/index.js
 npx @modelcontextprotocol/inspector node src/index.js
 ```
 
+## 📚 Documentation
+
+- **[CHANGELOG.md](CHANGELOG.md)** - Version history and migration notes
+- **[CONTRIBUTING.md](CONTRIBUTING.md)** - How to contribute to this project
+- **[SECURITY.md](SECURITY.md)** - Security policy and best practices
+- **[MIGRATION.md](MIGRATION.md)** - Migration guide for version upgrades
+
+## 🤝 Contributing
+
+We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for:
+- How to submit pull requests
+- Code style guidelines
+- Development workflow
+- Testing requirements
+
+## 🔒 Security
+
+Found a security issue? Please see [SECURITY.md](SECURITY.md) for:
+- How to report vulnerabilities
+- Security best practices
+- Credential management
+
+## 📋 Version History
+
+See [CHANGELOG.md](CHANGELOG.md) for detailed version history and breaking changes.
+
 ## License
 
 MIT
