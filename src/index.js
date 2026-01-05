@@ -24,12 +24,14 @@ import {
 
 import { RAGKnowledgeGraphManager } from './manager.js';
 import { getToolDefinitions } from './tools.js';
+import { filterToolsByMode } from './tool-modes.js';
 import { handleToolCall, createErrorResponse } from './handlers.js';
 
 // ==================== CONFIGURATION ====================
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_KEY = process.env.SUPABASE_SERVICE_KEY;
+const TOOLS_MODE = (process.env.TOOLS_MODE || 'full').toLowerCase();
 
 if (!SUPABASE_URL || !SUPABASE_KEY) {
   console.error('❌ Error: SUPABASE_URL and SUPABASE_SERVICE_KEY environment variables are required');
@@ -37,12 +39,27 @@ if (!SUPABASE_URL || !SUPABASE_KEY) {
   process.exit(1);
 }
 
+// Log active tools mode
+const modeDescriptions = {
+  client: 'CLIENT mode (11 essential tools for daily use)',
+  maintenance: 'MAINTENANCE mode (10 admin/cleanup tools)',
+  full: 'FULL mode (all 21 tools)'
+};
+console.error(`🔧 Tools: ${modeDescriptions[TOOLS_MODE] || 'FULL mode (default)'}`);
+
+
 // ==================== SERVER SETUP ====================
+
+// Get tools based on mode
+const allTools = getToolDefinitions();
+const activeTools = filterToolsByMode(allTools, TOOLS_MODE);
+
+console.error(`📊 Active tools: ${activeTools.length}/${allTools.length}`);
 
 const server = new Server(
   {
     name: 'rag-memory-pg',
-    version: '1.1.0',
+    version: '2.0.0',
   },
   {
     capabilities: {
@@ -56,10 +73,10 @@ const manager = new RAGKnowledgeGraphManager(SUPABASE_URL, SUPABASE_KEY);
 // ==================== REQUEST HANDLERS ====================
 
 /**
- * List available tools
+ * List available tools (filtered by TOOLS_MODE)
  */
 server.setRequestHandler(ListToolsRequestSchema, async () => {
-  return { tools: getToolDefinitions() };
+  return { tools: activeTools };
 });
 
 /**

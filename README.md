@@ -47,15 +47,17 @@ Add to `~/.cursor/mcp.json`:
         "SUPABASE_URL": "https://your-project.supabase.co",
         "SUPABASE_SERVICE_KEY": "your-service-key",
         "MODE": "local",
-        "OPENAI_API_KEY": "sk-your-api-key"
+        "OPENAI_API_KEY": "sk-your-api-key",
+        "TOOLS_MODE": "full"
       }
     }
   }
 }
 ```
 
-**To use OpenAI** (10-100x faster): Change `MODE` to `"openai"` and add your real OpenAI key.  
-**MODE=local** (default): Free, private, slower - ignores `OPENAI_API_KEY`.
+**Options:**
+- `MODE`: `"local"` (free, slower) or `"openai"` (10-100x faster)
+- `TOOLS_MODE`: `"client"` (11 tools), `"maintenance"` (10 tools), or `"full"` (21 tools, default)
 
 Then restart Cursor.
 
@@ -73,15 +75,17 @@ Add to `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS)
         "SUPABASE_URL": "https://your-project.supabase.co",
         "SUPABASE_SERVICE_KEY": "your-service-key",
         "MODE": "local",
-        "OPENAI_API_KEY": "sk-your-api-key"
+        "OPENAI_API_KEY": "sk-your-api-key",
+        "TOOLS_MODE": "full"
       }
     }
   }
 }
 ```
 
-**To use OpenAI** (10-100x faster): Change `MODE` to `"openai"` and add your real OpenAI key.  
-**MODE=local** (default): Free, private, slower - ignores `OPENAI_API_KEY`.
+**Options:**
+- `MODE`: `"local"` (free, slower) or `"openai"` (10-100x faster)
+- `TOOLS_MODE`: `"client"` (11 tools), `"maintenance"` (10 tools), or `"full"` (21 tools, default)
 
 Then restart Claude Desktop.
 
@@ -126,15 +130,17 @@ Add to `~/.windsurf/mcp.json`:
         "SUPABASE_URL": "https://your-project.supabase.co",
         "SUPABASE_SERVICE_KEY": "your-service-key",
         "MODE": "local",
-        "OPENAI_API_KEY": "sk-your-api-key"
+        "OPENAI_API_KEY": "sk-your-api-key",
+        "TOOLS_MODE": "full"
       }
     }
   }
 }
 ```
 
-**To use OpenAI** (10-100x faster): Change `MODE` to `"openai"` and add your real OpenAI key.  
-**MODE=local** (default): Free, private, slower - ignores `OPENAI_API_KEY`.
+**Options:**
+- `MODE`: `"local"` (free, slower) or `"openai"` (10-100x faster)
+- `TOOLS_MODE`: `"client"` (11 tools), `"maintenance"` (10 tools), or `"full"` (21 tools, default)
 
 Then restart Windsurf.
 
@@ -171,8 +177,34 @@ npm install -g github:kshidenko/rag-memory-pg-mcp
 |----------|----------|-------------|
 | `SUPABASE_URL` | Yes | Your Supabase project URL |
 | `SUPABASE_SERVICE_KEY` | Yes | Supabase service role key |
-| `MODE` | No | `local` (default) or `openai` |
+| `MODE` | No | Embedding mode: `local` (default) or `openai` |
 | `OPENAI_API_KEY` | No | Only used when `MODE=openai` |
+| `TOOLS_MODE` | No | Tool set: `client`, `maintenance`, or `full` (default) |
+
+### Tools Mode
+
+- **`full`** (default) - All 21 tools for complete functionality
+- **`client`** - 11 essential tools for daily memory operations (recommended for most users)
+- **`maintenance`** - 10 admin/cleanup tools for database management
+
+<details>
+<summary><b>Tools by Mode</b></summary>
+
+**CLIENT mode (11 tools) - Recommended for daily use:**
+- Knowledge Graph: createEntities, createRelations, addObservations, searchNodes, openNodes
+- Documents: processDocument (⭐ main tool)
+- Search: hybridSearch, getDetailedContext
+- Info: readGraph, getKnowledgeGraphStats
+
+**MAINTENANCE mode (10 tools) - For cleanup and admin:**
+- Cleanup: deleteEntities, deleteRelations, deleteObservations, deleteDocuments
+- Advanced: storeDocument, chunkDocument, embedChunks, embedAllEntities
+- Utilities: listDocuments, extractTerms, linkEntitiesToDocument
+
+**FULL mode (21 tools) - Everything:**
+- All CLIENT tools + all MAINTENANCE tools
+
+</details>
 
 ## Available Tools (21 total)
 
