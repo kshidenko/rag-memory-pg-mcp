@@ -11,11 +11,19 @@ A Model Context Protocol (MCP) server for RAG-enabled memory with PostgreSQL/Sup
 
 **One-click installation for your IDE:**
 
-[<img src="https://cursor.com/deeplink/mcp-install-dark.svg" alt="Install in Cursor">](https://cursor.com/en/install-mcp?name=rag-memory-pg&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsInJhZy1tZW1vcnktcGctbWNwIl0sImVudiI6eyJTVVBBQkFTRV9VUkwiOiJodHRwczovL3lvdXItcHJvamVjdC5zdXBhYmFzZS5jbyIsIlNVUEFCQVNFX1NFUlZJQ0VfS0VZIjoieW91ci1zZXJ2aWNlLWtleSJ9fQ%3D%3D)
-&nbsp;&nbsp;
-[<img src="https://files.lmstudio.ai/deeplink/mcp-install-light.svg" alt="Install in LM Studio">](https://lmstudio.ai/install-mcp?name=rag-memory-pg&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsInJhZy1tZW1vcnktcGctbWNwIl0sImVudiI6eyJTVVBBQkFTRV9VUkwiOiJodHRwczovL3lvdXItcHJvamVjdC5zdXBhYmFzZS5jbyIsIlNVUEFCQVNFX1NFUlZJQ0VfS0VZIjoieW91ci1zZXJ2aWNlLWtleSJ9fQ%3D%3D)
-&nbsp;&nbsp;
-[<img src="https://img.shields.io/badge/VS_Code-Install_Server-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white" alt="Install in VS Code">](https://vscode.dev/redirect/mcp/install?name=rag-memory-pg&config=%7B%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22rag-memory-pg-mcp%22%5D%2C%22type%22%3A%22stdio%22%7D)
+<p align="left">
+  <a href="https://cursor.com/en/install-mcp?name=rag-memory-pg&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsInJhZy1tZW1vcnktcGctbWNwIl0sImVudiI6eyJTVVBBQkFTRV9VUkwiOiJodHRwczovL3lvdXItcHJvamVjdC5zdXBhYmFzZS5jbyIsIlNVUEFCQVNFX1NFUlZJQ0VfS0VZIjoieW91ci1zZXJ2aWNlLWtleSJ9fQ%3D%3D">
+    <img src="https://cursor.com/deeplink/mcp-install-dark.svg" alt="Install in Cursor" style="vertical-align: middle;">
+  </a>
+  &nbsp;&nbsp;
+  <a href="https://lmstudio.ai/install-mcp?name=rag-memory-pg&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsInJhZy1tZW1vcnktcGctbWNwIl0sImVudiI6eyJTVVBBQkFTRV9VUkwiOiJodHRwczovL3lvdXItcHJvamVjdC5zdXBhYmFzZS5jbyIsIlNVUEFCQVNFX1NFUlZJQ0VfS0VZIjoieW91ci1zZXJ2aWNlLWtleSJ9fQ%3D%3D">
+    <img src="https://files.lmstudio.ai/deeplink/mcp-install-light.svg" alt="Install in LM Studio" style="vertical-align: middle;">
+  </a>
+  &nbsp;&nbsp;
+  <a href="https://vscode.dev/redirect/mcp/install?name=rag-memory-pg&config=%7B%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22rag-memory-pg-mcp%22%5D%2C%22type%22%3A%22stdio%22%7D">
+    <img src="https://img.shields.io/badge/VS_Code-Install_Server-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white" alt="Install in VS Code" style="vertical-align: middle;">
+  </a>
+</p>
 
 ---
 
@@ -33,9 +41,6 @@ Before installation, get your credentials:
 
 Add to `~/.cursor/mcp.json`:
 
-<details>
-<summary><b>🐌 Local Embeddings (Free, Private, Slower)</b></summary>
-
 ```json
 {
   "mcpServers": {
@@ -51,29 +56,11 @@ Add to `~/.cursor/mcp.json`:
 }
 ```
 
-</details>
-
-<details>
-<summary><b>⚡ OpenAI Embeddings (Fast, Cloud, Recommended)</b></summary>
-
+**Optional: Use OpenAI for 10-100x faster embeddings** (add to `env` above):
 ```json
-{
-  "mcpServers": {
-    "rag-memory-pg": {
-      "command": "npx",
-      "args": ["-y", "rag-memory-pg-mcp"],
-      "env": {
-        "SUPABASE_URL": "https://your-project.supabase.co",
-        "SUPABASE_SERVICE_KEY": "your-service-key",
-        "EMBEDDING_PROVIDER": "OPENAI",
-        "OPENAI_API_KEY": "sk-your-api-key"
-      }
-    }
-  }
-}
+"EMBEDDING_PROVIDER": "OPENAI",
+"OPENAI_API_KEY": "sk-your-api-key"
 ```
-
-</details>
 
 Then restart Cursor.
 
@@ -81,9 +68,6 @@ Then restart Cursor.
 
 Add to `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) or `%APPDATA%\Claude\claude_desktop_config.json` (Windows):
 
-<details>
-<summary><b>🐌 Local Embeddings (Free, Private, Slower)</b></summary>
-
 ```json
 {
   "mcpServers": {
@@ -99,29 +83,11 @@ Add to `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS)
 }
 ```
 
-</details>
-
-<details>
-<summary><b>⚡ OpenAI Embeddings (Fast, Cloud, Recommended)</b></summary>
-
+**Optional: Use OpenAI for 10-100x faster embeddings** (add to `env` above):
 ```json
-{
-  "mcpServers": {
-    "rag-memory-pg": {
-      "command": "npx",
-      "args": ["-y", "rag-memory-pg-mcp"],
-      "env": {
-        "SUPABASE_URL": "https://your-project.supabase.co",
-        "SUPABASE_SERVICE_KEY": "your-service-key",
-        "EMBEDDING_PROVIDER": "OPENAI",
-        "OPENAI_API_KEY": "sk-your-api-key"
-      }
-    }
-  }
-}
+"EMBEDDING_PROVIDER": "OPENAI",
+"OPENAI_API_KEY": "sk-your-api-key"
 ```
-
-</details>
 
 Then restart Claude Desktop.
 
@@ -129,9 +95,6 @@ Then restart Claude Desktop.
 
 Add to `.vscode/mcp.json` in your workspace:
 
-<details>
-<summary><b>🐌 Local Embeddings (Free, Private, Slower)</b></summary>
-
 ```json
 {
   "servers": {
@@ -148,30 +111,11 @@ Add to `.vscode/mcp.json` in your workspace:
 }
 ```
 
-</details>
-
-<details>
-<summary><b>⚡ OpenAI Embeddings (Fast, Cloud, Recommended)</b></summary>
-
+**Optional: Use OpenAI for 10-100x faster embeddings** (add to `env` above):
 ```json
-{
-  "servers": {
-    "rag-memory-pg": {
-      "type": "stdio",
-      "command": "npx",
-      "args": ["-y", "rag-memory-pg-mcp"],
-      "env": {
-        "SUPABASE_URL": "https://your-project.supabase.co",
-        "SUPABASE_SERVICE_KEY": "your-service-key",
-        "EMBEDDING_PROVIDER": "OPENAI",
-        "OPENAI_API_KEY": "sk-your-api-key"
-      }
-    }
-  }
-}
+"EMBEDDING_PROVIDER": "OPENAI",
+"OPENAI_API_KEY": "sk-your-api-key"
 ```
-
-</details>
 
 Then reload VS Code window.
 
@@ -179,9 +123,6 @@ Then reload VS Code window.
 
 Add to `~/.windsurf/mcp.json`:
 
-<details>
-<summary><b>🐌 Local Embeddings (Free, Private, Slower)</b></summary>
-
 ```json
 {
   "mcpServers": {
@@ -197,29 +138,11 @@ Add to `~/.windsurf/mcp.json`:
 }
 ```
 
-</details>
-
-<details>
-<summary><b>⚡ OpenAI Embeddings (Fast, Cloud, Recommended)</b></summary>
-
+**Optional: Use OpenAI for 10-100x faster embeddings** (add to `env` above):
 ```json
-{
-  "mcpServers": {
-    "rag-memory-pg": {
-      "command": "npx",
-      "args": ["-y", "rag-memory-pg-mcp"],
-      "env": {
-        "SUPABASE_URL": "https://your-project.supabase.co",
-        "SUPABASE_SERVICE_KEY": "your-service-key",
-        "EMBEDDING_PROVIDER": "OPENAI",
-        "OPENAI_API_KEY": "sk-your-api-key"
-      }
-    }
-  }
-}
+"EMBEDDING_PROVIDER": "OPENAI",
+"OPENAI_API_KEY": "sk-your-api-key"
 ```
-
-</details>
 
 Then restart Windsurf.
 
