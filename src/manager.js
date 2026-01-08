@@ -736,15 +736,34 @@ export class RAGKnowledgeGraphManager {
   /**
    * Hybrid search (semantic + text)
    * 
-   * @param {string} query - Search query
+   * Uses websearch_to_tsquery for safe query parsing that handles:
+   * - Plain text with spaces
+   * - Quoted phrases ("exact match")
+   * - OR operator
+   * - Negation with -
+   * 
+   * @param {string} query - Search query (plain text or websearch syntax)
    * @param {number} limit - Max results
    * @returns {object[]} Search results
+   * 
+   * @example
+   * // Simple search
+   * hybridSearch('authentication jwt')
+   * 
+   * // Phrase search
+   * hybridSearch('"user authentication"')
+   * 
+   * // With OR
+   * hybridSearch('auth OR login')
    */
   async hybridSearch(query, limit = 5) {
     const { data, error } = await this.supabase
       .from('rag_documents')
       .select('id, content, metadata, created_at')
-      .textSearch('content', query)
+      .textSearch('content', query, {
+        type: 'websearch',
+        config: 'english'
+      })
       .limit(limit);
     
     if (error) throw new Error(error.message);
@@ -768,7 +787,10 @@ export class RAGKnowledgeGraphManager {
     const { data: docs } = await this.supabase
       .from('rag_documents')
       .select('id, content, metadata')
-      .textSearch('content', query)
+      .textSearch('content', query, {
+        type: 'websearch',
+        config: 'english'
+      })
       .limit(limit);
 
     if (docs) results.documents = docs;

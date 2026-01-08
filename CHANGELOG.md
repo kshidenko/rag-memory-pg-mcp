@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.1] - 2026-01-08
+
+### Fixed 🐛
+- **hybridSearch syntax error** - queries with spaces/special characters no longer fail
+- **getDetailedContext syntax error** - same fix applied
+- Root cause: `textSearch()` used `to_tsquery()` which requires special syntax (`'word1' & 'word2'`)
+- Solution: Added `type: 'websearch'` option to use `websearch_to_tsquery()` instead
+
+### Improved
+- hybridSearch now supports advanced query syntax:
+  - Plain text: `authentication jwt` (AND search)
+  - Exact phrases: `"user authentication"`
+  - OR operator: `auth OR login`
+  - Negation: `react -native`
+
 ## [2.2.0] - 2026-01-05
 
 ### Breaking Changes 🔴
