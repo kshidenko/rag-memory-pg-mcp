@@ -945,6 +945,76 @@ export class RAGKnowledgeGraphManager {
   }
 
   /**
+   * Rebuild Full-Text Search index for all documents
+   * 
+   * Use this after enabling FTS or if search results seem stale.
+   * Requires supabase-fts-setup.sql to be run first.
+   * 
+   * @returns {object} Rebuild statistics
+   */
+  async rebuildSearchIndex() {
+    console.error('🔄 Rebuilding FTS index for all documents...');
+
+    // Check if FTS column exists
+    const { error: checkError } = await this.supabase
+      .from('rag_documents')
+      .select('content_tsv')
+      .limit(1);
+
+    if (checkError) {
+      throw new Error('FTS not configured. Run supabase-fts-setup.sql first.');
+    }
+
+    // Update all documents to regenerate tsvector via trigger
+    const { data, error } = await this.supabase.rpc('rebuild_fts_index');
+
+    if (error) {
+      // Fallback: manual update if RPC doesn't exist
+      console.error('RPC not found, using direct update...');
+      
+      const { count, error: updateError } = await this.supabase
+        .from('rag_documents')
+        .update({ content: this.supabase.raw('content') }) // Touch to trigger
+        .select('id', { count: 'exact' });
+
+      if (updateError) {
+        // Final fallback: raw SQL approach via simple select
+        const { data: docs } = await this.supabase
+          .from('rag_documents')
+          .select('id, content');
+
+        if (docs && docs.length > 0) {
+          let updated = 0;
+          for (const doc of docs) {
+            const { error: uErr } = await this.supabase
+              .from('rag_documents')
+              .update({ content: doc.content })
+              .eq('id', doc.id);
+            if (!uErr) updated++;
+          }
+          
+          // Reset FTS cache to re-detect
+          this._ftsAvailable = undefined;
+          
+          console.error(`✅ Rebuilt FTS index for ${updated} documents`);
+          return { success: true, documentsReindexed: updated };
+        }
+      }
+
+      // Reset FTS cache
+      this._ftsAvailable = undefined;
+      
+      return { success: true, documentsReindexed: count || 0 };
+    }
+
+    // Reset FTS cache
+    this._ftsAvailable = undefined;
+
+    console.error(`✅ FTS index rebuilt successfully`);
+    return { success: true, result: data };
+  }
+
+  /**
    * Extract key terms from a document
    * 
    * @param {string} documentId - Document ID

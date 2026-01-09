@@ -367,6 +367,14 @@ export function getToolDefinitions() {
       },
     },
     {
+      name: 'rebuildSearchIndex',
+      description: 'Rebuild Full-Text Search index for all documents. Use after enabling FTS (supabase-fts-setup.sql) or if search results seem stale. Triggers reindexing of tsvector column for fast full-text search. No parameters required.',
+      inputSchema: {
+        type: 'object',
+        properties: {},
+      },
+    },
+    {
       name: 'extractTerms',
       description: 'Extract key terms from a document',
       inputSchema: {

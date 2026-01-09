@@ -110,6 +110,9 @@ async function executeToolMethod(name, args, manager) {
     case 'getKnowledgeGraphStats':
       return manager.getKnowledgeGraphStats();
 
+    case 'rebuildSearchIndex':
+      return manager.rebuildSearchIndex();
+
     case 'extractTerms':
       return manager.extractTerms(args.documentId, {
         minLength: args.minLength,

@@ -45,6 +45,9 @@ export const TOOL_MODES = {
     'embedChunks',         // Manual embedding
     'embedAllEntities',    // Regenerate all embeddings
     
+    // Index & Search Maintenance
+    'rebuildSearchIndex',  // Rebuild FTS index
+    
     // Advanced Utilities
     'listDocuments',       // List all documents
     'extractTerms',        // Extract keywords
