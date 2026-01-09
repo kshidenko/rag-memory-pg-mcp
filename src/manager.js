@@ -796,16 +796,20 @@ export class RAGKnowledgeGraphManager {
    * @private
    */
   async _hybridSearchFts(query, limit) {
+    // Use raw SQL filter since textSearch doesn't work well with tsvector columns
+    // websearch_to_tsquery handles: spaces, quotes, OR, negation
+    const sanitizedQuery = query.replace(/'/g, "''"); // Escape single quotes
+    
     const { data, error } = await this.supabase
       .from('rag_documents')
       .select('id, content, metadata, created_at')
-      .textSearch('content_tsv', query, {
-        type: 'websearch',
-        config: 'english'
-      })
+      .filter('content_tsv', '@@', `websearch_to_tsquery('english', '${sanitizedQuery}')`)
       .limit(limit);
 
-    if (error) throw new Error(error.message);
+    if (error) {
+      console.error('FTS search error, falling back to ilike:', error.message);
+      return this._hybridSearchIlike(query, limit);
+    }
     return data || [];
   }
 
