@@ -736,38 +736,53 @@ export class RAGKnowledgeGraphManager {
   /**
    * Hybrid search (semantic + text)
    * 
-   * Uses websearch_to_tsquery for safe query parsing that handles:
-   * - Plain text with spaces
-   * - Quoted phrases ("exact match")
-   * - OR operator
-   * - Negation with -
+   * Searches documents using case-insensitive pattern matching.
+   * Splits query into keywords and finds documents containing ANY keyword.
    * 
-   * @param {string} query - Search query (plain text or websearch syntax)
+   * @param {string} query - Search query (space-separated keywords)
    * @param {number} limit - Max results
-   * @returns {object[]} Search results
+   * @returns {object[]} Search results sorted by relevance
    * 
    * @example
-   * // Simple search
    * hybridSearch('authentication jwt')
-   * 
-   * // Phrase search
-   * hybridSearch('"user authentication"')
-   * 
-   * // With OR
-   * hybridSearch('auth OR login')
+   * hybridSearch('Unity architecture patterns')
    */
   async hybridSearch(query, limit = 5) {
-    const { data, error } = await this.supabase
+    // Extract meaningful keywords (3+ chars)
+    const keywords = query
+      .toLowerCase()
+      .split(/\s+/)
+      .filter(w => w.length >= 3)
+      .slice(0, 5); // Limit to 5 keywords for performance
+
+    if (keywords.length === 0) {
+      return [];
+    }
+
+    // Search for documents containing any keyword
+    let queryBuilder = this.supabase
       .from('rag_documents')
-      .select('id, content, metadata, created_at')
-      .textSearch('content', query, {
-        type: 'websearch',
-        config: 'english'
-      })
-      .limit(limit);
-    
+      .select('id, content, metadata, created_at');
+
+    // Build OR condition for keywords
+    const orConditions = keywords.map(kw => `content.ilike.%${kw}%`).join(',');
+    queryBuilder = queryBuilder.or(orConditions);
+
+    const { data, error } = await queryBuilder.limit(limit * 2); // Get more for ranking
+
     if (error) throw new Error(error.message);
-    return data;
+    if (!data || data.length === 0) return [];
+
+    // Rank by keyword match count
+    const ranked = data.map(doc => {
+      const contentLower = doc.content.toLowerCase();
+      const matchCount = keywords.filter(kw => contentLower.includes(kw)).length;
+      return { ...doc, _matchCount: matchCount };
+    });
+
+    // Sort by match count and return top results
+    ranked.sort((a, b) => b._matchCount - a._matchCount);
+    return ranked.slice(0, limit).map(({ _matchCount, ...doc }) => doc);
   }
 
   /**
@@ -784,16 +799,24 @@ export class RAGKnowledgeGraphManager {
 
     const results = { query, documents: [], entities: [], relationships: [] };
 
-    const { data: docs } = await this.supabase
-      .from('rag_documents')
-      .select('id, content, metadata')
-      .textSearch('content', query, {
-        type: 'websearch',
-        config: 'english'
-      })
-      .limit(limit);
+    // Extract keywords for search
+    const keywords = query
+      .toLowerCase()
+      .split(/\s+/)
+      .filter(w => w.length >= 3)
+      .slice(0, 5);
 
-    if (docs) results.documents = docs;
+    if (keywords.length > 0) {
+      let docQuery = this.supabase
+        .from('rag_documents')
+        .select('id, content, metadata');
+      
+      const orConditions = keywords.map(kw => `content.ilike.%${kw}%`).join(',');
+      docQuery = docQuery.or(orConditions);
+
+      const { data: docs } = await docQuery.limit(limit);
+      if (docs) results.documents = docs;
+    }
 
     if (includeEntities) {
       const { data: entities } = await this.supabase
