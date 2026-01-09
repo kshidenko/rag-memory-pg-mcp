@@ -1,6 +1,6 @@
 {
   "name": "rag-memory-pg-mcp",
-  "version": "2.2.2",
+  "version": "2.3.0",
   "description": "PostgreSQL-based RAG Memory MCP Server with Supabase - knowledge graph + semantic search",
   "type": "module",
   "main": "src/index.js",

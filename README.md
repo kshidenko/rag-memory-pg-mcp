@@ -384,6 +384,24 @@ The server supports two embedding modes controlled by the `MODE` environment var
 
 **Switching modes:** Just change `MODE` from `"local"` to `"openai"` in your config. Both modes produce compatible 384-dim vectors, so existing embeddings remain valid.
 
+## ⚡ Full-Text Search (Optional)
+
+For better search performance on large document sets, enable PostgreSQL Full-Text Search:
+
+```bash
+# Run in Supabase SQL Editor
+# File: supabase-fts-setup.sql (included in repo)
+```
+
+| Feature | Without FTS | With FTS |
+|---------|-------------|----------|
+| Speed (1000+ docs) | Slow (seq scan) | **Fast (GIN index)** |
+| Stemming | ❌ | ✅ "running" → "run" |
+| Stop words | ❌ | ✅ ignores "the", "a" |
+| Phrase search | ❌ | ✅ `"exact phrase"` |
+
+The server **auto-detects** FTS availability and uses the optimal search method.
+
 ## Development
 
 ```bash

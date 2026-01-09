@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.3.0] - 2026-01-08
+
+### Added ✨
+- **Full-Text Search (FTS) support** with automatic detection
+- New `supabase-fts-setup.sql` migration for enabling tsvector + GIN index
+- Auto-detects FTS availability and uses optimal search method
+
+### Changed
+- hybridSearch now auto-selects search strategy:
+  - **With FTS**: Uses tsvector for fast search with stemming, stop words, ranking
+  - **Without FTS**: Falls back to ilike keyword search (works out of the box)
+- getDetailedContext now reuses hybridSearch for consistency
+- FTS detection result is cached for performance
+
+### Benefits of FTS (run supabase-fts-setup.sql)
+- 10-100x faster on large document sets (GIN index)
+- Stemming: "running" matches "run"
+- Stop words: ignores "the", "a", "is"
+- Better relevance ranking with ts_rank
+- Phrase search support
+
 ## [2.2.2] - 2026-01-08
 
 ### Fixed 🐛

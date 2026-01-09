@@ -734,10 +734,44 @@ export class RAGKnowledgeGraphManager {
   // ==================== SEARCH & RETRIEVAL ====================
 
   /**
+   * Check if Full-Text Search (tsvector) is available
+   * Caches result to avoid repeated queries
+   * 
+   * @returns {Promise<boolean>} True if FTS is configured
+   */
+  async _checkFtsAvailable() {
+    if (this._ftsAvailable !== undefined) {
+      return this._ftsAvailable;
+    }
+
+    try {
+      // Check if content_tsv column exists by querying it
+      const { error } = await this.supabase
+        .from('rag_documents')
+        .select('content_tsv')
+        .limit(1);
+      
+      this._ftsAvailable = !error;
+      if (this._ftsAvailable) {
+        console.error('✅ FTS (tsvector) available - using fast full-text search');
+      } else {
+        console.error('ℹ️ FTS not configured - using ilike fallback. Run supabase-fts-setup.sql for better performance');
+      }
+    } catch {
+      this._ftsAvailable = false;
+    }
+
+    return this._ftsAvailable;
+  }
+
+  /**
    * Hybrid search (semantic + text)
    * 
-   * Searches documents using case-insensitive pattern matching.
-   * Splits query into keywords and finds documents containing ANY keyword.
+   * Automatically uses Full-Text Search (tsvector) if configured,
+   * otherwise falls back to keyword-based ilike search.
+   * 
+   * FTS benefits: faster on large datasets, stemming, stop words, ranking.
+   * Run supabase-fts-setup.sql to enable FTS.
    * 
    * @param {string} query - Search query (space-separated keywords)
    * @param {number} limit - Max results
@@ -748,6 +782,38 @@ export class RAGKnowledgeGraphManager {
    * hybridSearch('Unity architecture patterns')
    */
   async hybridSearch(query, limit = 5) {
+    const useFts = await this._checkFtsAvailable();
+
+    if (useFts) {
+      return this._hybridSearchFts(query, limit);
+    } else {
+      return this._hybridSearchIlike(query, limit);
+    }
+  }
+
+  /**
+   * Full-Text Search using tsvector (fast, with stemming)
+   * @private
+   */
+  async _hybridSearchFts(query, limit) {
+    const { data, error } = await this.supabase
+      .from('rag_documents')
+      .select('id, content, metadata, created_at')
+      .textSearch('content_tsv', query, {
+        type: 'websearch',
+        config: 'english'
+      })
+      .limit(limit);
+
+    if (error) throw new Error(error.message);
+    return data || [];
+  }
+
+  /**
+   * Fallback search using ilike (works without FTS setup)
+   * @private
+   */
+  async _hybridSearchIlike(query, limit) {
     // Extract meaningful keywords (3+ chars)
     const keywords = query
       .toLowerCase()
@@ -799,23 +865,11 @@ export class RAGKnowledgeGraphManager {
 
     const results = { query, documents: [], entities: [], relationships: [] };
 
-    // Extract keywords for search
-    const keywords = query
-      .toLowerCase()
-      .split(/\s+/)
-      .filter(w => w.length >= 3)
-      .slice(0, 5);
-
-    if (keywords.length > 0) {
-      let docQuery = this.supabase
-        .from('rag_documents')
-        .select('id, content, metadata');
-      
-      const orConditions = keywords.map(kw => `content.ilike.%${kw}%`).join(',');
-      docQuery = docQuery.or(orConditions);
-
-      const { data: docs } = await docQuery.limit(limit);
-      if (docs) results.documents = docs;
+    // Use hybridSearch for documents (auto-selects FTS or ilike)
+    try {
+      results.documents = await this.hybridSearch(query, limit);
+    } catch (e) {
+      console.error('Document search failed:', e.message);
     }
 
     if (includeEntities) {
